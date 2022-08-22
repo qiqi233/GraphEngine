@@ -13,9 +13,9 @@
 #include <DirectXCollision.h>
 #include <vector>
 #include <windef.h>
-#include "DirectX12/d3dx12.h"
+#include "DirectX/d3dx12.h"
 #include <DirectXMath.h>
-
+#include "Core/Misc/PlatformMaro.h"
 #include "DebugInfo/EngineDebug.h"
 #include "DebugInfo/EngineLog.h"
 
@@ -24,3 +24,7 @@ using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 extern class IEngine* Engine;
+
+#ifndef  DirectX12Engine
+#define  DirectX12Engine
+#endif // ! DirectX12Engine

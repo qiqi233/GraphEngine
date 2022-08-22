@@ -1,11 +1,19 @@
 #include "RenderingInterface.h"
 #include "Platform/Windows/WindowsEngine.h"
 
+FRenderEngine* IRenderingIntface::GetRenderEngine()
+{
+	if (FPlatformEngine* WindowsEngine = GetEngine())
+	{
+		return WindowsEngine->DX12RenderEngine;
+	}
+}
+
 Microsoft::WRL::ComPtr<ID3D12Device> IRenderingIntface::GetD3dDevice()
 {
 	if(FPlatformEngine* WindowsEngine= GetEngine())
 	{
-		return WindowsEngine->D3dDevice;
+		return GetRenderEngine()->D3dDevice;
 	}
 	return ComPtr<ID3D12Device>();
 }
@@ -27,7 +35,7 @@ Microsoft::WRL::ComPtr<ID3D12CommandAllocator> IRenderingIntface::GetCommandAllo
 {
 	if (FWindowsEngine* InEngine = GetEngine())
 	{
-		return InEngine->CommandAllocator;
+		return GetRenderEngine()->CommandAllocator;
 	}
 
 	return NULL;
@@ -36,7 +44,7 @@ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> IRenderingIntface::GetGraphics
 {
 	if (FPlatformEngine* WindowsEngine = GetEngine())
 	{
-		return WindowsEngine->GraphicsCommandList;
+		return GetRenderEngine()->GraphicsCommandList;
 	}
 	return ComPtr<ID3D12GraphicsCommandList>();
 }
@@ -49,8 +57,7 @@ FGuid IRenderingIntface::GetGuid()
 std::vector<IRenderingIntface*> IRenderingIntface::RenderingIntface;
 IRenderingIntface::IRenderingIntface()
 {
-	create_guid(&RenderGuid);
-
+	RenderGuid=FGuid::NewGuid();
 	RenderingIntface.push_back(this);
 }
 
@@ -129,6 +136,6 @@ ComPtr<ID3D12Resource> IRenderingIntface::ConstructDefaultBuffer(ComPtr<ID3D12Re
 
 bool IRenderingIntface::operator==(const IRenderingIntface& InOther)
 {
-	return guid_equal(&RenderGuid,&InOther.RenderGuid);
+	return RenderGuid==InOther.RenderGuid;
 }
 

@@ -7,12 +7,14 @@ cbuffer ConstantBuffer:register(b0)
 struct VertexDataIn
 {
 	float3 Position : POSITION;
+	float3 Normal : NORMAL;
 	float4 Color : COLOR;
 };
 
 struct VertexDataOut
 {
 	float4 PositionH : SV_POSITION;
+	float3 Normal : NORMAL;
 	float4 Color : COLOR;
 };
 

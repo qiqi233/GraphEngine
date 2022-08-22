@@ -2,198 +2,204 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
         <Filter Include="Engine">
-            <UniqueIdentifier>{E0683D01-9DF7-4430-9F13-75F0A22A7691}</UniqueIdentifier>
+            <UniqueIdentifier>{9A257AC0-D2B6-4000-BE4D-487DC9718C92}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Component">
-            <UniqueIdentifier>{C5DE55FF-B099-4D16-85C2-E5E88EDF882C}</UniqueIdentifier>
+            <UniqueIdentifier>{EA7B99A8-F535-4491-B881-46FDBFB73B2C}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Component\Input">
-            <UniqueIdentifier>{6F5A8397-A157-48DE-8589-2AE0D06A0803}</UniqueIdentifier>
+            <UniqueIdentifier>{C6D7C897-EA41-42A8-9A48-EE5C5CE18E42}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Config">
-            <UniqueIdentifier>{B9D90107-8FCD-44E3-B8CE-EB51C681C0F8}</UniqueIdentifier>
+            <UniqueIdentifier>{A4D00EA6-A864-43AE-A1F4-34DAF28E9B08}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Core">
-            <UniqueIdentifier>{DA5B573D-410F-419B-8436-EA3E37A6C31D}</UniqueIdentifier>
+            <UniqueIdentifier>{40D3A312-D80D-4EF2-ADFF-FDCF65A505EC}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Engine\Core\Misc">
+            <UniqueIdentifier>{BCE63DF4-2080-423A-9354-2ECB1D6C9A15}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\DebugInfo">
-            <UniqueIdentifier>{3ABDE880-04C6-4020-8DA3-FAF3AB817AEB}</UniqueIdentifier>
+            <UniqueIdentifier>{B2F5E805-176C-4A13-BBE8-4F5BF5B18EFF}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Engine\GC">
+            <UniqueIdentifier>{30A4D9CD-5FAA-4EA8-B39A-621D13E78098}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Math">
-            <UniqueIdentifier>{6616305B-0A58-465D-AC34-C60855AFABB3}</UniqueIdentifier>
+            <UniqueIdentifier>{67F1B59D-D86A-4BFA-80C0-9B1760423336}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Mesh">
-            <UniqueIdentifier>{1A2CC1B2-1226-430A-B4EE-1804369A6A7D}</UniqueIdentifier>
+            <UniqueIdentifier>{29AA9C8C-CB6E-4A24-9885-C92E4E715215}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Mesh\Core">
-            <UniqueIdentifier>{98ABDD9F-85CF-4F0A-975A-2934CBD58206}</UniqueIdentifier>
+            <UniqueIdentifier>{0472F103-F7EE-46F7-87DD-A2D8EFF8D97A}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Platform">
-            <UniqueIdentifier>{7369AA95-B87F-4065-AFD5-E07D91CB77B8}</UniqueIdentifier>
+            <UniqueIdentifier>{417683B3-E342-4930-8BA1-4132479CAFF9}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Platform\PS">
-            <UniqueIdentifier>{A4DE6420-C20F-4DCC-894B-CAC19C9B153F}</UniqueIdentifier>
+            <UniqueIdentifier>{1EE149CA-7F01-4CFE-84BF-6F16814E928D}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Platform\Windows">
-            <UniqueIdentifier>{A8686B65-7900-48E6-981D-AAC212B3A632}</UniqueIdentifier>
+            <UniqueIdentifier>{7D9ACC39-3DB6-4020-AE07-92BA440D654F}</UniqueIdentifier>
         </Filter>
         <Filter Include="Engine\Shader">
-            <UniqueIdentifier>{A5B35A70-8536-4447-977F-6BE9B99D2D2B}</UniqueIdentifier>
+            <UniqueIdentifier>{CAFD0CF2-70AD-4B7A-B8D0-0DA7A8B949B7}</UniqueIdentifier>
         </Filter>
         <Filter Include="Rendering">
-            <UniqueIdentifier>{FC309A7A-5758-4787-BCBE-EDFE64B29F18}</UniqueIdentifier>
+            <UniqueIdentifier>{1EE47F16-4C4C-41B3-AC04-AA1128AF66BE}</UniqueIdentifier>
         </Filter>
         <Filter Include="Rendering\Core">
-            <UniqueIdentifier>{A094A772-419B-4DA2-9642-F7E9A0030B60}</UniqueIdentifier>
+            <UniqueIdentifier>{3262262B-32F6-4F11-87BD-80E0A46FB2D4}</UniqueIdentifier>
         </Filter>
-        <Filter Include="Rendering\DirectX12">
-            <UniqueIdentifier>{36485D8C-0492-4FCA-BABF-28021E964C59}</UniqueIdentifier>
+        <Filter Include="Rendering\DirectX">
+            <UniqueIdentifier>{667B1FE4-5E73-4046-9B2C-23615363E281}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Rendering\OpenGL">
+            <UniqueIdentifier>{DCCD24C9-1B36-40DB-93C2-2F310FF17071}</UniqueIdentifier>
         </Filter>
         <Filter Include="Shader">
-            <UniqueIdentifier>{EB811387-B0F9-499D-BFA6-57F652D5A4BD}</UniqueIdentifier>
+            <UniqueIdentifier>{6867B95D-D88C-4827-9ABF-957F0A86D5B0}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library">
-            <UniqueIdentifier>{9D0052BD-A21E-4BEA-9F73-81D5BBC19D64}</UniqueIdentifier>
+            <UniqueIdentifier>{A275C060-6CB4-41AC-97FA-078CDAD63DDF}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private">
-            <UniqueIdentifier>{0BBC47BA-AFCD-4395-A855-3E9B896D4C64}</UniqueIdentifier>
+            <UniqueIdentifier>{B16EFFFF-BEF6-4134-8CD5-C0721401F3DA}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_channel">
-            <UniqueIdentifier>{D82EB77B-685F-471D-A5EA-52FB3FABAC9D}</UniqueIdentifier>
+            <UniqueIdentifier>{19BEBC4A-7F9B-4CA9-B185-12D1CB67FADA}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_channel\simple_io_stream">
-            <UniqueIdentifier>{2E41D36A-2BFB-41B1-A192-D5A12EA55774}</UniqueIdentifier>
+            <UniqueIdentifier>{FE197120-F599-4C15-8641-3ECE8BDEB656}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_channel\simple_net_channel">
-            <UniqueIdentifier>{932380F3-035A-4581-BC96-FF091CAFF2FB}</UniqueIdentifier>
+            <UniqueIdentifier>{344086FD-98BD-4C30-BAE7-52269939E6DC}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_channel\simple_net_connetion">
-            <UniqueIdentifier>{31A812EC-21DB-465E-A3B0-8D8475D9B438}</UniqueIdentifier>
+            <UniqueIdentifier>{B22FE950-C97E-4096-A336-F4BFEFBDE3FA}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_channel\simple_net_drive">
-            <UniqueIdentifier>{E4EE5946-979A-46E8-9CBE-70C84F70EABE}</UniqueIdentifier>
+            <UniqueIdentifier>{3A6BAC9C-42A9-407C-86DF-0DF70D706BE3}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal">
-            <UniqueIdentifier>{C05630EF-07DF-4348-B3C5-E91572483A67}</UniqueIdentifier>
+            <UniqueIdentifier>{63895144-80CE-418E-B10F-268AFA39FD5A}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_core">
-            <UniqueIdentifier>{ACDACA96-A4F0-4F29-B844-02DAA7AB9370}</UniqueIdentifier>
+            <UniqueIdentifier>{93F13794-499E-4128-AAF5-A097D07A227B}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_core\simple_c_array">
-            <UniqueIdentifier>{0DD85CDF-7618-4658-855B-33D6552FCC81}</UniqueIdentifier>
+            <UniqueIdentifier>{62971465-4C1C-4D48-8334-78C7B2DFFE71}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_core\simple_c_string_algorithm">
-            <UniqueIdentifier>{0847A0CD-EF6F-476F-A5AE-D4E0CDFB6671}</UniqueIdentifier>
+            <UniqueIdentifier>{E710CB31-DF47-4E39-86DE-C672C8A43664}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_guid">
-            <UniqueIdentifier>{14B2A8C1-B9E7-423A-83EF-14AFC49C7474}</UniqueIdentifier>
+            <UniqueIdentifier>{035EC48E-9A92-4F73-838E-0B40808124CA}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_helper_file">
-            <UniqueIdentifier>{DDF71462-EA18-4ECC-AE63-F4EBB7C44A44}</UniqueIdentifier>
+            <UniqueIdentifier>{F93668DD-F00E-47B5-AA09-5A2D10BE71D2}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_path">
-            <UniqueIdentifier>{B7DA9339-2583-4F11-A2E9-084FA8918D8F}</UniqueIdentifier>
+            <UniqueIdentifier>{CA2B724E-B95F-4D5B-8645-CDDB9595F743}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_time">
-            <UniqueIdentifier>{2A08B8D1-365B-4F79-B192-0FD83772A1BC}</UniqueIdentifier>
+            <UniqueIdentifier>{5400C28A-C16D-4531-84D7-63A426F0500C}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_core_minimal\simple_c_windows">
-            <UniqueIdentifier>{2B080578-5E5A-4DB6-AC0F-0807F5ED184A}</UniqueIdentifier>
+            <UniqueIdentifier>{17DD6C17-A336-43B4-9545-90D9C423BD83}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_c_log">
-            <UniqueIdentifier>{F4BC46F9-06E5-489B-BAF6-F1EE368D4B23}</UniqueIdentifier>
+            <UniqueIdentifier>{F9B00DBB-DD3A-4D3A-90B6-52A830E3E51F}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_math">
-            <UniqueIdentifier>{5F1A337B-69BB-48F7-86F6-D03AAE8ABFD3}</UniqueIdentifier>
+            <UniqueIdentifier>{21C2A3F5-1CCE-4A64-8C1A-D8483561E3B7}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_math\transformation">
-            <UniqueIdentifier>{2EB82A75-2E59-4A51-A884-0B30FE4FE4BC}</UniqueIdentifier>
+            <UniqueIdentifier>{ACD9F1B1-6DAB-4D6A-A6D6-7AD906EC754C}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_math\transformation\matrix">
-            <UniqueIdentifier>{50F3550B-F12C-452E-ADE8-FAD345356FA2}</UniqueIdentifier>
+            <UniqueIdentifier>{72B46276-D968-4594-8344-0BFB53FE1394}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\private\simple_math\transformation\vector">
-            <UniqueIdentifier>{F03D33B8-A22A-45AB-98DD-A59A5C2E57CB}</UniqueIdentifier>
+            <UniqueIdentifier>{114FDC5B-1B93-4F96-97B3-9BB24BFE4E78}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public">
-            <UniqueIdentifier>{085B9EAF-BF3D-4DEF-8C7E-C7BBAA17BE53}</UniqueIdentifier>
+            <UniqueIdentifier>{CF569C5D-9FB4-4A98-AF36-189FEEEA695A}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_array">
-            <UniqueIdentifier>{B0FA94FF-1403-4F97-B532-132C4D841F58}</UniqueIdentifier>
+            <UniqueIdentifier>{915D593F-F3F9-4C3F-B786-FF3C048DBF67}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_channel">
-            <UniqueIdentifier>{4CEE63B4-C8D6-46E5-BB8A-F265413204F6}</UniqueIdentifier>
+            <UniqueIdentifier>{739038AB-1178-4567-8464-B31802F3FC0A}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_channel\simple_core">
-            <UniqueIdentifier>{039F45A4-0460-4CB6-8A6F-F7EB266225B1}</UniqueIdentifier>
+            <UniqueIdentifier>{044FD0FF-7B68-4D7D-BB8B-5616FFEBB64C}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal">
-            <UniqueIdentifier>{E28EFE45-8486-43C2-8FCB-1F6FA3966C69}</UniqueIdentifier>
+            <UniqueIdentifier>{361AE68D-32D2-4C5F-8808-75023B7E24DE}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_core">
-            <UniqueIdentifier>{4633E2F1-3FE4-49CF-9D3D-E818FB560047}</UniqueIdentifier>
+            <UniqueIdentifier>{9A0F6A2C-9190-47DA-BCD5-F66543002F70}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_core\simple_c_array">
-            <UniqueIdentifier>{0698E673-FF69-4000-B133-49DAB963E572}</UniqueIdentifier>
+            <UniqueIdentifier>{322E8F8E-F2F3-4B23-890D-020209EEF669}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_core\simple_c_array\Core">
-            <UniqueIdentifier>{33C85D74-4C68-4BEA-9ADD-6D191BA03CAB}</UniqueIdentifier>
+            <UniqueIdentifier>{0C84441C-8470-4358-85B0-1B849D8EFD5D}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_core\simple_c_string_algorithm">
-            <UniqueIdentifier>{252DB453-0555-41B4-AC76-768009D249DF}</UniqueIdentifier>
+            <UniqueIdentifier>{CF1A6EFC-C1F9-40DF-B492-F1169AE40781}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_guid">
-            <UniqueIdentifier>{DC4EBA56-8209-4FB4-96E0-C1E61B441C00}</UniqueIdentifier>
+            <UniqueIdentifier>{64E6F0D8-923D-40D8-828C-BF07CDFB7F71}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_helper_file">
-            <UniqueIdentifier>{0DE9289D-3F4E-492A-8E5C-D3E1CEFDE848}</UniqueIdentifier>
+            <UniqueIdentifier>{AE0E270A-3EE2-4D5C-8347-2F9E52305A3F}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_path">
-            <UniqueIdentifier>{0B4AD9E9-B272-41B5-BADD-3641A2D39115}</UniqueIdentifier>
+            <UniqueIdentifier>{0E015CD2-9831-4E20-967D-7A80AF3471A4}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_time">
-            <UniqueIdentifier>{7C2D4F68-A140-4F7B-9BDF-0EAB79845C4F}</UniqueIdentifier>
+            <UniqueIdentifier>{8D78A8B2-3B1D-442B-8E51-71C613C451F8}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_core_minimal\simple_c_windows">
-            <UniqueIdentifier>{1306B3F0-20A1-4832-8597-F6EE1031EF44}</UniqueIdentifier>
+            <UniqueIdentifier>{F1B47459-44D8-4915-8787-4E61482884A8}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_cpp_core_minimal">
-            <UniqueIdentifier>{15397602-64EF-4F8B-BF73-254230DD0B56}</UniqueIdentifier>
+            <UniqueIdentifier>{C73C7D81-1035-4F51-B308-74BA793B6434}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_cpp_core_minimal\shared">
-            <UniqueIdentifier>{642801CE-5FC7-4CA4-B427-9ACB90D663B8}</UniqueIdentifier>
+            <UniqueIdentifier>{07C6E8EB-36AF-4275-A179-1CB0D31CC26B}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_c_log">
-            <UniqueIdentifier>{AD66FE6E-7153-4825-BDE2-DDF91C1DB3A6}</UniqueIdentifier>
+            <UniqueIdentifier>{FC9580F5-A7C2-4EB4-BA25-39BD7ABBDF83}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_delegate">
-            <UniqueIdentifier>{5272F4C8-6E16-41FC-8108-5AB8BE317D00}</UniqueIdentifier>
+            <UniqueIdentifier>{9614954F-8618-4046-B5C2-FB385E964213}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_http">
-            <UniqueIdentifier>{A0FAD7AE-D09F-4D31-B4CD-70FAFAD32141}</UniqueIdentifier>
+            <UniqueIdentifier>{CA71011E-4E05-4F42-9CE4-1571B53AE0A3}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_math">
-            <UniqueIdentifier>{C5DC0A5E-FBA8-4366-9E83-282A8EB20A86}</UniqueIdentifier>
+            <UniqueIdentifier>{9441B542-ECC6-4F35-BF48-31B4F51217C6}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_math\transformation">
-            <UniqueIdentifier>{124DE9BB-3FB5-4CA1-A19C-87AE10940D47}</UniqueIdentifier>
+            <UniqueIdentifier>{BEAEA973-6734-4A2B-9200-672B9A7C448E}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_math\transformation\matrix">
-            <UniqueIdentifier>{09C78B8A-3894-435B-8E50-5E75EA0CAAE9}</UniqueIdentifier>
+            <UniqueIdentifier>{72D2BFA0-35E8-40AC-979E-26C3304A27FD}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_math\transformation\vector">
-            <UniqueIdentifier>{20A4E30E-4983-49D0-9B4B-4E9BDA0281B4}</UniqueIdentifier>
+            <UniqueIdentifier>{A882BD2D-FA1B-44B4-911C-DE1074DADCDB}</UniqueIdentifier>
         </Filter>
         <Filter Include="simple_library\public\simple_mysql">
-            <UniqueIdentifier>{01BB5B6F-4CD9-49B7-B4C5-3D996A500E43}</UniqueIdentifier>
+            <UniqueIdentifier>{C88E6A3B-3413-4A62-AC4E-F3E59970BF57}</UniqueIdentifier>
         </Filter>
     </ItemGroup>
     <ItemGroup>
         <ClCompile Include="Engine\Component\Component.cpp">
             <Filter>Engine\Component</Filter>
-        </ClCompile>
-        <ClCompile Include="Engine\Component\Input\InputType.cpp">
-            <Filter>Engine\Component\Input</Filter>
         </ClCompile>
         <ClCompile Include="Engine\Component\InputComponent.cpp">
             <Filter>Engine\Component</Filter>
@@ -204,11 +210,17 @@
         <ClCompile Include="Engine\Config\EngineRenderConfig.cpp">
             <Filter>Engine\Config</Filter>
         </ClCompile>
+        <ClCompile Include="Engine\Core\Actor.cpp">
+            <Filter>Engine\Core</Filter>
+        </ClCompile>
         <ClCompile Include="Engine\Core\Camera.cpp">
             <Filter>Engine\Core</Filter>
         </ClCompile>
         <ClCompile Include="Engine\Core\Engine.cpp">
             <Filter>Engine\Core</Filter>
+        </ClCompile>
+        <ClCompile Include="Engine\Core\Misc\Guid.cpp">
+            <Filter>Engine\Core\Misc</Filter>
         </ClCompile>
         <ClCompile Include="Engine\Core\Object.cpp">
             <Filter>Engine\Core</Filter>
@@ -243,6 +255,9 @@
         <ClCompile Include="Engine\Mesh\Core\Mesh.cpp">
             <Filter>Engine\Mesh\Core</Filter>
         </ClCompile>
+        <ClCompile Include="Engine\Mesh\Core\MeshManage.cpp">
+            <Filter>Engine\Mesh\Core</Filter>
+        </ClCompile>
         <ClCompile Include="Engine\Mesh\CustomMesh.cpp">
             <Filter>Engine\Mesh</Filter>
         </ClCompile>
@@ -269,6 +284,12 @@
         </ClCompile>
         <ClCompile Include="Rendering\Core\RenderingInterface.cpp">
             <Filter>Rendering\Core</Filter>
+        </ClCompile>
+        <ClCompile Include="Rendering\DirectX\DX12RenderingEngine.cpp">
+            <Filter>Rendering\DirectX</Filter>
+        </ClCompile>
+        <ClCompile Include="Rendering\DirectX\RenderingEngine.cpp">
+            <Filter>Rendering\DirectX</Filter>
         </ClCompile>
         <ClCompile Include="simple_library\private\simple_channel\simple_io_stream\simple_io_stream.cpp">
             <Filter>simple_library\private\simple_channel\simple_io_stream</Filter>
@@ -371,7 +392,13 @@
         <ClInclude Include="Engine\Config\EngineRenderConfig.h">
             <Filter>Engine\Config</Filter>
         </ClInclude>
+        <ClInclude Include="Engine\Core\Actor.h">
+            <Filter>Engine\Core</Filter>
+        </ClInclude>
         <ClInclude Include="Engine\Core\Camera.h">
+            <Filter>Engine\Core</Filter>
+        </ClInclude>
+        <ClInclude Include="Engine\Core\CoreMinimal.h">
             <Filter>Engine\Core</Filter>
         </ClInclude>
         <ClInclude Include="Engine\Core\Engine.h">
@@ -379,6 +406,15 @@
         </ClInclude>
         <ClInclude Include="Engine\Core\ICommandParameters.h">
             <Filter>Engine\Core</Filter>
+        </ClInclude>
+        <ClInclude Include="Engine\Core\Misc\Delegate.h">
+            <Filter>Engine\Core\Misc</Filter>
+        </ClInclude>
+        <ClInclude Include="Engine\Core\Misc\Guid.h">
+            <Filter>Engine\Core\Misc</Filter>
+        </ClInclude>
+        <ClInclude Include="Engine\Core\Misc\PlatformMaro.h">
+            <Filter>Engine\Core\Misc</Filter>
         </ClInclude>
         <ClInclude Include="Engine\Core\Object.h">
             <Filter>Engine\Core</Filter>
@@ -401,6 +437,9 @@
         <ClInclude Include="Engine\EngineMinimal.h">
             <Filter>Engine</Filter>
         </ClInclude>
+        <ClInclude Include="Engine\GC\CodeRefMacro.h">
+            <Filter>Engine\GC</Filter>
+        </ClInclude>
         <ClInclude Include="Engine\Math\MathHelper.h">
             <Filter>Engine\Math</Filter>
         </ClInclude>
@@ -416,7 +455,10 @@
         <ClInclude Include="Engine\Mesh\Core\Mesh.h">
             <Filter>Engine\Mesh\Core</Filter>
         </ClInclude>
-        <ClInclude Include="Engine\Mesh\Core\MeshType.hpp">
+        <ClInclude Include="Engine\Mesh\Core\MeshBufferData.h">
+            <Filter>Engine\Mesh\Core</Filter>
+        </ClInclude>
+        <ClInclude Include="Engine\Mesh\Core\MeshManage.h">
             <Filter>Engine\Mesh\Core</Filter>
         </ClInclude>
         <ClInclude Include="Engine\Mesh\CustomMesh.h">
@@ -452,8 +494,14 @@
         <ClInclude Include="Rendering\Core\UploadBuffer.h">
             <Filter>Rendering\Core</Filter>
         </ClInclude>
-        <ClInclude Include="Rendering\DirectX12\d3dx12.h">
-            <Filter>Rendering\DirectX12</Filter>
+        <ClInclude Include="Rendering\DirectX\d3dx12.h">
+            <Filter>Rendering\DirectX</Filter>
+        </ClInclude>
+        <ClInclude Include="Rendering\DirectX\DX12RenderingEngine.h">
+            <Filter>Rendering\DirectX</Filter>
+        </ClInclude>
+        <ClInclude Include="Rendering\DirectX\RenderingEngine.h">
+            <Filter>Rendering\DirectX</Filter>
         </ClInclude>
         <ClInclude Include="Shader\testShader.hlsl">
             <Filter>Shader</Filter>
@@ -547,9 +595,6 @@
         </ClInclude>
         <ClInclude Include="simple_library\public\simple_c_log\simple_c_log.h">
             <Filter>simple_library\public\simple_c_log</Filter>
-        </ClInclude>
-        <ClInclude Include="simple_library\public\simple_delegate\simple_delegate.h">
-            <Filter>simple_library\public\simple_delegate</Filter>
         </ClInclude>
         <ClInclude Include="simple_library\public\simple_library.h">
             <Filter>simple_library\public</Filter>

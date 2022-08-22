@@ -10,3 +10,13 @@ UObject::~UObject()
 
 }
 
+void UObject::BeginPlay()
+{
+
+}
+
+void UObject::DestroyPlay()
+{
+
+}
+

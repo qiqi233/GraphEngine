@@ -45,8 +45,6 @@
 //application 
 #include "simple_c_log/simple_c_log.h"
 
-//Delegate
-#include "simple_delegate/simple_delegate.h"
 
 //net
 #include "simple_channel/simple_net_drive.h"

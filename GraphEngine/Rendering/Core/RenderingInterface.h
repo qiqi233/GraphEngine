@@ -7,7 +7,7 @@
 #if defined(_WIN32) ||defined(_WIN64) 
 #include "Platform/Windows/WindowsEngine.h"
 #endif
-using FGuid= simple_c_guid;
+#include "Core/Misc/Guid.h"
 //äÖÈ¾½Ó¿Ú
 
 #if defined(_WIN32) ||defined(_WIN64) 
@@ -16,6 +16,11 @@ using FPlatformEngine = FWindowsEngine;
 using FPlatformEngine = FEngine;
 #endif
 
+#if defined(DirectX12Engine)
+using FRenderEngine = FDX12RenderEngine;
+#else
+using FRenderEngine = FDX12RenderEngine;
+#endif
 class IRenderingIntface
 {
 	friend class FWindowsEngine;
@@ -31,6 +36,7 @@ protected:
 protected:
 	ComPtr<ID3D12Resource> ConstructDefaultBuffer(ComPtr<ID3D12Resource>& OutTmpBuffer,const void* Data,UINT64 Size);
 	bool operator==(const IRenderingIntface& InOther);
+	FRenderEngine* GetRenderEngine();
 	ComPtr<ID3D12Device> GetD3dDevice();
 	FPlatformEngine* GetEngine();
 	ComPtr<ID3D12CommandAllocator> GetCommandAllocator();

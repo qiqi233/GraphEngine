@@ -20,12 +20,13 @@
     </ItemGroup>
     <ItemGroup>
         <ClCompile Include="Engine\Component\Component.cpp" />
-        <ClCompile Include="Engine\Component\Input\InputType.cpp" />
         <ClCompile Include="Engine\Component\InputComponent.cpp" />
         <ClCompile Include="Engine\Component\TransformComponent.cpp" />
         <ClCompile Include="Engine\Config\EngineRenderConfig.cpp" />
+        <ClCompile Include="Engine\Core\Actor.cpp" />
         <ClCompile Include="Engine\Core\Camera.cpp" />
         <ClCompile Include="Engine\Core\Engine.cpp" />
+        <ClCompile Include="Engine\Core\Misc\Guid.cpp" />
         <ClCompile Include="Engine\Core\Object.cpp" />
         <ClCompile Include="Engine\Core\Viewport.cpp" />
         <ClCompile Include="Engine\Core\World.cpp" />
@@ -37,6 +38,7 @@
         <ClCompile Include="Engine\Mesh\BoxMesh.cpp" />
         <ClCompile Include="Engine\Mesh\ConeMesh.cpp" />
         <ClCompile Include="Engine\Mesh\Core\Mesh.cpp" />
+        <ClCompile Include="Engine\Mesh\Core\MeshManage.cpp" />
         <ClCompile Include="Engine\Mesh\CustomMesh.cpp" />
         <ClCompile Include="Engine\Mesh\CylinderMesh.cpp" />
         <ClCompile Include="Engine\Mesh\PlaneMesh.cpp" />
@@ -46,6 +48,8 @@
         <ClCompile Include="Engine\Platform\Windows\WinMainCommandParameters.cpp" />
         <ClCompile Include="Engine\Shader\Shader.cpp" />
         <ClCompile Include="Rendering\Core\RenderingInterface.cpp" />
+        <ClCompile Include="Rendering\DirectX\DX12RenderingEngine.cpp" />
+        <ClCompile Include="Rendering\DirectX\RenderingEngine.cpp" />
         <ClCompile Include="simple_library\private\simple_channel\simple_io_stream\simple_io_stream.cpp" />
         <ClCompile Include="simple_library\private\simple_channel\simple_net_channel\simple_channel.cpp" />
         <ClCompile Include="simple_library\private\simple_channel\simple_net_connetion\simple_connetion.cpp" />
@@ -81,9 +85,14 @@
         <ClInclude Include="Engine\Component\InputComponent.h" />
         <ClInclude Include="Engine\Component\TransformComponent.h" />
         <ClInclude Include="Engine\Config\EngineRenderConfig.h" />
+        <ClInclude Include="Engine\Core\Actor.h" />
         <ClInclude Include="Engine\Core\Camera.h" />
+        <ClInclude Include="Engine\Core\CoreMinimal.h" />
         <ClInclude Include="Engine\Core\Engine.h" />
         <ClInclude Include="Engine\Core\ICommandParameters.h" />
+        <ClInclude Include="Engine\Core\Misc\Delegate.h" />
+        <ClInclude Include="Engine\Core\Misc\Guid.h" />
+        <ClInclude Include="Engine\Core\Misc\PlatformMaro.h" />
         <ClInclude Include="Engine\Core\Object.h" />
         <ClInclude Include="Engine\Core\Viewport.h" />
         <ClInclude Include="Engine\Core\World.h" />
@@ -91,12 +100,14 @@
         <ClInclude Include="Engine\DebugInfo\EngineLog.h" />
         <ClInclude Include="Engine\EngineFactory.h" />
         <ClInclude Include="Engine\EngineMinimal.h" />
+        <ClInclude Include="Engine\GC\CodeRefMacro.h" />
         <ClInclude Include="Engine\Math\MathHelper.h" />
         <ClInclude Include="Engine\Math\MathUtility.h" />
         <ClInclude Include="Engine\Mesh\BoxMesh.h" />
         <ClInclude Include="Engine\Mesh\ConeMesh.h" />
         <ClInclude Include="Engine\Mesh\Core\Mesh.h" />
-        <ClInclude Include="Engine\Mesh\Core\MeshType.hpp" />
+        <ClInclude Include="Engine\Mesh\Core\MeshBufferData.h" />
+        <ClInclude Include="Engine\Mesh\Core\MeshManage.h" />
         <ClInclude Include="Engine\Mesh\CustomMesh.h" />
         <ClInclude Include="Engine\Mesh\CylinderMesh.h" />
         <ClInclude Include="Engine\Mesh\PlaneMesh.h" />
@@ -108,7 +119,9 @@
         <ClInclude Include="Engine\Shader\Shader.h" />
         <ClInclude Include="Rendering\Core\RenderingInterface.h" />
         <ClInclude Include="Rendering\Core\UploadBuffer.h" />
-        <ClInclude Include="Rendering\DirectX12\d3dx12.h" />
+        <ClInclude Include="Rendering\DirectX\d3dx12.h" />
+        <ClInclude Include="Rendering\DirectX\DX12RenderingEngine.h" />
+        <ClInclude Include="Rendering\DirectX\RenderingEngine.h" />
         <ClInclude Include="Shader\testShader.hlsl" />
         <ClInclude Include="simple_library\private\simple_channel\simple_net_connetion\simple_connetion_tcp.h" />
         <ClInclude Include="simple_library\private\simple_channel\simple_net_connetion\simple_connetion_udp.h" />
@@ -140,7 +153,6 @@
         <ClInclude Include="simple_library\public\simple_cpp_core_minimal\shared\simple_cpp_shared_ptr_type.h" />
         <ClInclude Include="simple_library\public\simple_cpp_core_minimal\simple_cpp_core_minimal.h" />
         <ClInclude Include="simple_library\public\simple_c_log\simple_c_log.h" />
-        <ClInclude Include="simple_library\public\simple_delegate\simple_delegate.h" />
         <ClInclude Include="simple_library\public\simple_library.h" />
         <ClInclude Include="simple_library\public\simple_math\math_libray.hpp" />
         <ClInclude Include="simple_library\public\simple_math\math_utils.h" />
@@ -234,6 +246,7 @@
             <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
             <ConformanceMode>true</ConformanceMode>
             <AdditionalIncludeDirectories>$(ProjectDir)Rendering;$(ProjectDir)Engine;$(ProjectDir)simple_library\private;$(ProjectDir)simple_library\public</AdditionalIncludeDirectories>
+            <AdditionalOptions>/D _CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
         </ClCompile>
         <Link>
             <SubSystem>Windows</SubSystem>

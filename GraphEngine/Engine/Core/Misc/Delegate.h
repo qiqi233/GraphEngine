@@ -1,7 +1,7 @@
 // Copyright (C) RenZhai.2022.All Rights Reserved.
 #pragma once
 #include <map>
-#include "../simple_core_minimal/simple_c_guid/simple_guid.h"
+#include "Core/Misc/Guid.h"
 
 template< class TReturn, typename ...ParamTypes>
 class FDelegateBase
@@ -113,6 +113,15 @@ public:
 	{
 		return CurrentDelegatePtr->Execute(std::forward<ParamTypes>(Params)...);
 	}
+	virtual bool ExecuteIfBound(ParamTypes &&...Params)
+	{
+		if(IsBound())
+		{
+			Execute(std::forward<ParamTypes>(Params)...);
+			return true;
+		}
+		return false;
+	}
 
 	FDelegate<TReturn, ParamTypes...> &operator=(const FDelegate<TReturn, ParamTypes...> &InDelegate)
 	{
@@ -136,16 +145,22 @@ struct FDelegateHandle
 {
 	FDelegateHandle()
 	{
-		create_guid(&Guid);
+		Guid = FGuid::NewGuid();
 	}
 
-	friend bool operator<(const FDelegateHandle &K1,const FDelegateHandle &K2)
+	friend bool operator<(const FDelegateHandle& K1, const FDelegateHandle& K2)
 	{
-		return K1.Guid.a < K2.Guid.a;
+		return K1.Guid < K2.Guid;
+	}
+	friend bool operator==(const FDelegateHandle& K1, const FDelegateHandle& K2)
+	{
+		return K1.Guid == K2.Guid;
 	}
 
-	simple_c_guid Guid;
+	FGuid Guid;
 };
+
+
 
 template<class TReturn, typename ...ParamTypes>
 class FMulticastDelegate :public std::map<FDelegateHandle,FDelegate<TReturn, ParamTypes...>>
@@ -202,7 +217,10 @@ public:
 	}
 };
 
-#define SIMPLE_SINGLE_DELEGATE(Name,Return,...) FSingleDelegate<Return,__VA_ARGS__> Name
-#define MULTICAST_SINGLE_DELEGATE(Name,Return,...) FMulticastDelegate<Return,__VA_ARGS__> Name
-#define DEFINITION_SIMPLE_SINGLE_DELEGATE(DefinitionName,Return,...) class DefinitionName :public FSingleDelegate<Return,__VA_ARGS__> {};
-#define DEFINITION_MULTICAST_SINGLE_DELEGATE(DefinitionName,Return,...) class DefinitionName :public FMulticastDelegate<Return,__VA_ARGS__> {};
+
+
+
+#define SIMPLE_DELEATE_MOREPARAM(Name,Return,...) FSingleDelegate<Return,__VA_ARGS__> Name
+#define SIMPLE_MULTICAST_DELEGATE_MOREPARAM(Name,Return,...) FMulticastDelegate<Return,__VA_ARGS__> Name
+#define DECLARE_DELEGATE_MOREPARAM(DefinitionName,Return,...) class DefinitionName :public FSingleDelegate<Return,__VA_ARGS__> {};
+#define DECLARE_MULTICAST_DELEGATE_MOREPARAM(DefinitionName,Return,...) class DefinitionName :public FMulticastDelegate<Return,__VA_ARGS__> {};
