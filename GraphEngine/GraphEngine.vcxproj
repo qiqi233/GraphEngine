@@ -19,7 +19,9 @@
         </ProjectConfiguration>
     </ItemGroup>
     <ItemGroup>
+        <ClCompile Include="Engine\Component\ActorComponent.cpp" />
         <ClCompile Include="Engine\Component\Component.cpp" />
+        <ClCompile Include="Engine\Component\Input\Input.cpp" />
         <ClCompile Include="Engine\Component\InputComponent.cpp" />
         <ClCompile Include="Engine\Component\TransformComponent.cpp" />
         <ClCompile Include="Engine\Config\EngineRenderConfig.cpp" />
@@ -32,6 +34,7 @@
         <ClCompile Include="Engine\Core\World.cpp" />
         <ClCompile Include="Engine\DebugInfo\EngineDebug.cpp" />
         <ClCompile Include="Engine\EngineFactory.cpp" />
+        <ClCompile Include="Engine\EngineMinimal.cpp" />
         <ClCompile Include="Engine\Luanch.cpp" />
         <ClCompile Include="Engine\Math\MathHelper.cpp" />
         <ClCompile Include="Engine\Math\MathUtility.cpp" />
@@ -47,9 +50,15 @@
         <ClCompile Include="Engine\Platform\Windows\WindowsMessageProcessing.cpp" />
         <ClCompile Include="Engine\Platform\Windows\WinMainCommandParameters.cpp" />
         <ClCompile Include="Engine\Shader\Shader.cpp" />
+        <ClCompile Include="Rendering\Core\d3dUtil.cpp" />
         <ClCompile Include="Rendering\Core\RenderingInterface.cpp" />
+        <ClCompile Include="Rendering\DirectX\DirectXDeviceInterfece.cpp" />
         <ClCompile Include="Rendering\DirectX\DX12RenderingEngine.cpp" />
         <ClCompile Include="Rendering\DirectX\RenderingEngine.cpp" />
+        <ClCompile Include="Rendering\Metal\MetalRenderingEngin.cpp" />
+        <ClCompile Include="Rendering\OpenGL\OpenGLDeviceInterfece.cpp" />
+        <ClCompile Include="Rendering\OpenGL\OpenGLRenderingEngine.cpp" />
+        <ClCompile Include="Rendering\Vulkan\VulkanRenderingEngine.cpp" />
         <ClCompile Include="simple_library\private\simple_channel\simple_io_stream\simple_io_stream.cpp" />
         <ClCompile Include="simple_library\private\simple_channel\simple_net_channel\simple_channel.cpp" />
         <ClCompile Include="simple_library\private\simple_channel\simple_net_connetion\simple_connetion.cpp" />
@@ -80,7 +89,9 @@
         <ClCompile Include="simple_library\private\simple_math\transformation\vector\vector_4d.cpp" />
     </ItemGroup>
     <ItemGroup>
+        <ClInclude Include="Engine\Component\ActorComponent.h" />
         <ClInclude Include="Engine\Component\Component.h" />
+        <ClInclude Include="Engine\Component\Input\Input.h" />
         <ClInclude Include="Engine\Component\Input\InputType.h" />
         <ClInclude Include="Engine\Component\InputComponent.h" />
         <ClInclude Include="Engine\Component\TransformComponent.h" />
@@ -117,11 +128,17 @@
         <ClInclude Include="Engine\Platform\Windows\WindowsPlatform.h" />
         <ClInclude Include="Engine\Platform\Windows\WinMainCommandParameters.h" />
         <ClInclude Include="Engine\Shader\Shader.h" />
+        <ClInclude Include="Rendering\Core\d3dUtil.h" />
         <ClInclude Include="Rendering\Core\RenderingInterface.h" />
         <ClInclude Include="Rendering\Core\UploadBuffer.h" />
         <ClInclude Include="Rendering\DirectX\d3dx12.h" />
+        <ClInclude Include="Rendering\DirectX\DirectXDeviceInterfece.h" />
         <ClInclude Include="Rendering\DirectX\DX12RenderingEngine.h" />
         <ClInclude Include="Rendering\DirectX\RenderingEngine.h" />
+        <ClInclude Include="Rendering\Metal\MetalRenderingEngin.h" />
+        <ClInclude Include="Rendering\OpenGL\OpenGLDeviceInterfece.h" />
+        <ClInclude Include="Rendering\OpenGL\OpenGLRenderingEngine.h" />
+        <ClInclude Include="Rendering\Vulkan\VulkanRenderingEngine.h" />
         <ClInclude Include="Shader\testShader.hlsl" />
         <ClInclude Include="simple_library\private\simple_channel\simple_net_connetion\simple_connetion_tcp.h" />
         <ClInclude Include="simple_library\private\simple_channel\simple_net_connetion\simple_connetion_udp.h" />

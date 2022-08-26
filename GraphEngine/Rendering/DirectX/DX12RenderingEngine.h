@@ -20,10 +20,20 @@ private:
 	void PostInitDirect3D();
 	//Rendering
 	virtual void Rendering(float InDeltaTime)override;
+public:
 	ID3D12Resource* GetCurrentSwapBuffResource() const;
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCurrentSwapBufferView()  const;
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCurrentDepthStencilView() const;
 	void WaitGPUCommandQueueComplete();
+	ComPtr<IDXGIFactory4>	GetDXGIFactory()const{return DXGIFactory;};
+	ComPtr<ID3D12Device>	GetD3dDevice()const {return D3dDevice;};
+	ComPtr<ID3D12Fence>		GetD3dFence()const {return D3dFence;};
+
+	ComPtr<ID3D12CommandQueue>			GetCommandQueue()const {return CommandQueue;};
+	ComPtr<ID3D12CommandAllocator>		GetCommandAllocator()const {return CommandAllocator;};
+	ComPtr<ID3D12GraphicsCommandList>	GetGraphicsCommandList()const {return GraphicsCommandList;};
+
+	ComPtr<IDXGISwapChain> GetDXGISwapChain;
 protected:
 	//用于创建DirectX图形基础结构(DXGI)对象
 	ComPtr<IDXGIFactory4>	DXGIFactory;

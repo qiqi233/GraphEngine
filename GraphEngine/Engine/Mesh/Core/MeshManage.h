@@ -2,10 +2,14 @@
 #include "Mesh.h"
 #include "Core/RenderingInterface.h"
 #include "Core/Object.h"
+#include "DirectX/DirectXDeviceInterfece.h"
 
 class FRenderingResourcesUpdate;
 
-class UMeshManage :public UObject,public IRenderingIntface
+class UMeshManage 
+	: public UObject
+	, public IRenderingIntface
+	, public IDirectXDeviceInterfece
 {
 public:
 	UMeshManage();

@@ -14,8 +14,3 @@ public:
 };
 
 
-template<class T>
-T* ConstructComponent()
-{
-	return NewObject<T>();
-}

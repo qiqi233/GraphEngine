@@ -7,6 +7,7 @@
 #include "../ConeMesh.h"
 #include "../CylinderMesh.h"
 #include "../PlaneMesh.h"
+#include "Core/d3dUtil.h"
 
 UMeshManage::UMeshManage()
 	: VertexSizeInBytes(0)
@@ -52,8 +53,18 @@ void UMeshManage::BuildMesh(const FMeshRenderingData* InData)
 	DX12_DEBUG_MESSAGE(D3DCreateBlob(IndexSizeInBytes, &CPUIndexBufferPtr));
 	memcpy(CPUIndexBufferPtr->GetBufferPointer(), InData->IndexData.data(), IndexSizeInBytes);
 	//创建顶点缓冲区以及索引缓冲区
-	GPUVertexBufferPtr = ConstructDefaultBuffer(GPUVertexBufferUploadPtr, InData->VertexData.data(), VertexSizeInBytes);
-	GPUIndexBufferPtr = ConstructDefaultBuffer(GPUIndexBufferUploadPtr, InData->IndexData.data(), IndexSizeInBytes);
+	GPUVertexBufferPtr = d3dUtil::CreateDefaultBuffer(
+	GetD3dDevice().Get(),
+	GetGraphicsCommandList().Get(),
+	InData->VertexData.data(), 
+	VertexSizeInBytes,
+	GPUVertexBufferUploadPtr);
+	GPUIndexBufferPtr = d3dUtil::CreateDefaultBuffer(
+	GetD3dDevice().Get(), 
+	GetGraphicsCommandList().Get(),
+	InData->IndexData.data(), 
+	IndexSizeInBytes, 
+	GPUIndexBufferUploadPtr);
 
 
 	//---------------------常量缓冲区构建-------------------------------------------//

@@ -14,12 +14,7 @@ public:
 	virtual void Tick(float DeltaTime)override;
 	virtual void EndPlay()override;
 	virtual void DestroyPlay()override;
-public:
-	void UpdateInputEvent(const FInputKey& InputKey);
 private:
-	UPROPROTY()
-	UTransformComponent* TransformationComponent;
-
-	UPROPROTY()
-	UInputComponent* InputComponent;
+	void CaptureInputDownEvent(FInputKey InputKey);
+	void CaptureUpdateInputUpEvent(FInputKey InputKey);
 };

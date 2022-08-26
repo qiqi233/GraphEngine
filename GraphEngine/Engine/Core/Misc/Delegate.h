@@ -109,20 +109,20 @@ public:
 		return CurrentDelegatePtr != nullptr;
 	}
 
-	virtual TReturn Execute(ParamTypes &&...Params)
+	virtual TReturn Execute(ParamTypes ...Params)
 	{
 		return CurrentDelegatePtr->Execute(std::forward<ParamTypes>(Params)...);
+	
 	}
-	virtual bool ExecuteIfBound(ParamTypes &&...Params)
+	virtual bool ExecuteIfBound(ParamTypes...Params)
 	{
-		if(IsBound())
+		if (IsBound())
 		{
 			Execute(std::forward<ParamTypes>(Params)...);
 			return true;
 		}
 		return false;
 	}
-
 	FDelegate<TReturn, ParamTypes...> &operator=(const FDelegate<TReturn, ParamTypes...> &InDelegate)
 	{
 		CurrentDelegatePtr = InDelegate.CurrentDelegatePtr;

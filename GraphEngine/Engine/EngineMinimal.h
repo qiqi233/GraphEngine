@@ -19,12 +19,18 @@
 #include "DebugInfo/EngineDebug.h"
 #include "DebugInfo/EngineLog.h"
 
+
 using namespace Microsoft::WRL;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 extern class IEngine* Engine;
-
 #ifndef  DirectX12Engine
 #define  DirectX12Engine
 #endif // ! DirectX12Engine
+
+#if defined(_WIN64)||defined(_WIN32)
+class FWindowsEngine;
+using FPlatformEngine=FWindowsEngine;
+extern FPlatformEngine* GetEngine();
+#endif

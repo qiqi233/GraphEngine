@@ -151,7 +151,7 @@ public:
 	*/
 	FString ToString();
 
-public:
+
 
 public:
 

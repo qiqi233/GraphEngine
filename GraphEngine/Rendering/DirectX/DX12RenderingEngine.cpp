@@ -297,16 +297,7 @@ void FDX12RenderEngine::Rendering(float InDeltaTime)
 {
 	//重置录制相关的内存，为下一帧做准备
 	DX12_DEBUG_MESSAGE(CommandAllocator->Reset());
-	if (IRenderingIntface::RenderingIntface.size() > 0)
-	{
-		//重置命令分配器，PSO每个Mesh里面都有一个，这个有问题
-
-		MeshManage->PreDraw(InDeltaTime);
-	}
-	else
-	{
-		DX12_DEBUG_MESSAGE(GraphicsCommandList->Reset(CommandAllocator.Get(), NULL));
-	}
+	MeshManage->PreDraw(InDeltaTime);
 	/////////////////////////////////////////////////////////
 	//指向哪个资源 转换其状态
 	//通知驱动程序它需要同步对资源的多次访问。

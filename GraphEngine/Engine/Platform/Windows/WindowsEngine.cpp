@@ -1,6 +1,7 @@
 #include "WindowsEngine.h"
 #include "WindowsMessageProcessing.h"
-#include <Config/EngineRenderConfig.h>
+#include "Config/EngineRenderConfig.h"
+#include "Core/World.h"
 #if defined(_WIN32)||defined(_WIN64)
 FWindowsEngine::FWindowsEngine()
 	:DX12RenderEngine(new FDX12RenderEngine())
@@ -40,6 +41,9 @@ int FWindowsEngine::Init(ICommandParameters Parameters)
 	}
 	DX12RenderEngine->PostInitDirect3D();
 	GE_LOG(Log, "WindowsEngine Init() initialization complete.");
+
+	MainWorld=NewObject<UWorld>();
+	MainWorld->InitWorld();
 	return 0;
 }
 
@@ -70,9 +74,10 @@ void FWindowsEngine::Tick(float DeltaTime)
 		}
 		else
 		{
-			Sleep(static_cast<unsigned long>(DeltaTime * 1000));
+			//Sleep(static_cast<unsigned long>(DeltaTime * 1000));
 			//Çå³ýÉÏÒ»Ö¡
 			DX12RenderEngine->Rendering(DeltaTime);
+			MainWorld->TickWorld(DeltaTime);
 		}
 	}
 
@@ -86,6 +91,8 @@ int FWindowsEngine::PreExit()
 
 int FWindowsEngine::Exit()
 {
+	MainWorld->DestroyWorld();
+	delete MainWorld;
 	GE_LOG(Log, "WindowsEngine Exit() initialization complete.");
 	return 0;
 }
@@ -96,6 +103,11 @@ int FWindowsEngine::PostExit()
 	return 0;
 }
 
+
+UWorld* FWindowsEngine::GetMainWorld() const
+{
+	return MainWorld;
+}
 
 bool FWindowsEngine::InitWindows(ICommandParameters InParameters)
 {
