@@ -6,6 +6,21 @@
 
 class FRenderingResourcesUpdate;
 
+
+struct ObjectConstants
+{
+public:
+	ObjectConstants()
+		:WorldViewProj(MathHelper::Identity4x4())
+		, gTime(0)
+	{
+
+	}
+	XMFLOAT4X4 WorldViewProj;
+	float   gTime;
+
+};
+
 class UMeshManage 
 	: public UObject
 	, public IRenderingIntface
