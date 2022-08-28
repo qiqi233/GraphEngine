@@ -3,8 +3,10 @@
 
 enum EPressState
 {
+	NONE,
 	Press,//按下
 	Release,//松开
+	Axis,//持续性
 };
 enum class EMouseState:uint8_t
 {
@@ -16,6 +18,7 @@ struct FInputKey
 {
 	FInputKey()
 		: Code(0)
+		, PressState(EPressState::NONE)
 	{
 		
 	}

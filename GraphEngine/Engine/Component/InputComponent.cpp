@@ -28,6 +28,11 @@ void UInputComponent::InitComponent()
 void UInputComponent::TickComponent(float DeltaTime)
 {
 	Super::TickComponent(DeltaTime);
+	for(auto It= InputAxisBindingMap.begin();It!= InputAxisBindingMap.end();++It)
+	{
+		It->second.Exetuce();
+	}
+
 }
 
 void UInputComponent::Destroy()

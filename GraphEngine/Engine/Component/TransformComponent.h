@@ -27,6 +27,12 @@ public:
 	XMFLOAT3& GetForwardVector() { return ForwardVector; }
 	XMFLOAT3& GetRightVector() { return RightVector; }
 	XMFLOAT3& GetUPVector() { return UPVector; }
+public:
+	//½ÃÕýUp right look(fd) ·µ»Ø pos
+	void CorrectionVector();
+
+	fvector_3d GetCorrectionPosition();
+	void GetCorrectionPosition(fvector_3d& InPos3);
 
 private:
 	XMFLOAT3 Position;

@@ -1,22 +1,17 @@
 #pragma once
 #include "EngineMinimal.h"
-#include "Core/Object.h"
 #include "Core/RenderingInterface.h"
-#include "Core/Mesh.h"
+#include "Core/MeshBufferData.h"
 
 
-class UCustomMesh : public UMesh
+class UCustomMesh : public IRenderingIntface
 {
 public:
 	UCustomMesh();
 	virtual ~UCustomMesh();
 public:
-	virtual void Init() override;
-	virtual void Draw(float InDeltaTime) override;
-	virtual void BuildMesh(const FMeshRenderingData* InData)override;
-
-	void CreateMesh(FMeshRenderingData& MeshData, string& InPath);
+	void CreateMesh(FMeshData& MeshData, string& InPath);
 private:
-	static bool LoadObjFromBuff(char* InBuff, uint32_t InBuffSize, FMeshRenderingData& MeshData);
+	static bool LoadObjFromBuff(char* InBuff, uint32_t InBuffSize, FMeshData& MeshData);
 };
 

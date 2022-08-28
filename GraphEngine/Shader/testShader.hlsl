@@ -1,40 +1,61 @@
-cbuffer ConstantBuffer:register(b0)
-{
-	float4x4 WorldViewProj;
-	float    gTime;
-}
+//***************************************************************************************
+// color.hlsl by Frank Luna (C) 2015 All Rights Reserved.
+//
+// Transforms and colors geometry.
+//***************************************************************************************
 
-struct VertexDataIn
+cbuffer cbPerObject : register(b0)
 {
-	float3 Position : POSITION;
-	float3 Normal : NORMAL;
-	float4 Color : COLOR;
+    float4x4 gWorld;
 };
 
-struct VertexDataOut
+cbuffer cbPass : register(b1)
 {
-	float4 PositionH : SV_POSITION;
-	float3 Normal : NORMAL;
-	float4 Color : COLOR;
+    float4x4 gView;
+    float4x4 gInvView;
+    float4x4 gProj;
+    float4x4 gInvProj;
+    float4x4 gViewProj;
+    float4x4 gInvViewProj;
+    float3 gEyePosW;
+    float cbPerObjectPad1;
+    float2 gRenderTargetSize;
+    float2 gInvRenderTargetSize;
+    float gNearZ;
+    float gFarZ;
+    float gTotalTime;
+    float gDeltaTime;
 };
 
-VertexDataOut VSMain(VertexDataIn Data)
+struct VertexIn
 {
-	VertexDataOut Out;
-	Out.PositionH=mul(float4(Data.Position,1), WorldViewProj);
-	/*static float i=0.2;
-	static int b = 1;
-	Out.Position.x=i;
-	Out.Position.y=i*b;
-	Out.Position.z=0.5*i;
-	Out.Position.w=1;
-	i+=0.01;
-	b=-b;*/
-	Out.Color=Data.Color;
-	return Out;
+    float3 PosL  : POSITION;
+    float4 Color : COLOR;
+};
+
+struct VertexOut
+{
+    float4 PosH  : SV_POSITION;
+    float4 Color : COLOR;
+};
+
+VertexOut VSMain(VertexIn vin)
+{
+    VertexOut vout;
+
+    // Transform to homogeneous clip space.
+    float4 posW = mul(float4(vin.PosL, 1.0f), gWorld);
+    vout.PosH = mul(posW, gViewProj);
+
+    // Just pass vertex color into the pixel shader.
+    vout.Color = vin.Color;
+
+    return vout;
 }
 
-float4 PSMain(VertexDataOut Data):SV_Target
+float4 PSMain(VertexOut pin) : SV_Target
 {
-	return Data.Color;
+    return pin.Color;
 }
+
+

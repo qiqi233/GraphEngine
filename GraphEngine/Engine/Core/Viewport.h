@@ -31,7 +31,9 @@ class IViewport
 public:
 	IViewport();
 	virtual ~IViewport();
-private:
+
+	void ViewportInit();
+protected:
 
 	//定义摄像机位置,UP，Right,Look
 	XMFLOAT4X4 ViewMatrix;

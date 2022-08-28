@@ -65,8 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE preInstance, PSTR cmdLine, int
 	{
 		//³õÊ¼»¯
 		RetVal = EngineInit(Engine, hInstance, preInstance, cmdLine, showCmd);
-		float DeltaTime=0.02f;
-		Engine->Tick(DeltaTime);
+		Engine->Tick(0);
 		EngineExit(Engine);
 	}
 	else

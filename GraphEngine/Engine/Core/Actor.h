@@ -36,8 +36,6 @@ public:
 protected:
 	UPROPROTY()
 	UTransformComponent* TransformationComponent;
-	UPROPROTY()
-	UInputComponent* InputComponent;
 private:
 	std::unordered_map<FString,UActorComponent*> ResigteredCompMap;
 	bool bIsEnableTick;

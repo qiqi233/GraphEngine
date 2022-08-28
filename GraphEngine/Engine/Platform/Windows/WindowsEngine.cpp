@@ -56,15 +56,16 @@ int FWindowsEngine::PostInit()
 void FWindowsEngine::Tick(float DeltaTime)
 {
 	MSG Msg{};
+	mTimer.Reset();
 	while (true)
 	{	
-			//PM_NOREMOVE 消息不从队列里除掉。
-			//PM_REMOVE   消息从队列里除掉。
-			//PM_NOYIELD  此标志使系统不释放等待调用程序空闲的线程
-			//PM_QS_INPUT 处理鼠标和键盘消息。
-			//PM_QS_PAINT 处理画图消息。
-			//PM_QS_POSTMESSAGE 处理所有被寄送的消息，包括计时器和热键。
-			//PM_QS_SENDMESSAGE 处理所有发送消息。
+		//PM_NOREMOVE 消息不从队列里除掉。
+		//PM_REMOVE   消息从队列里除掉。
+		//PM_NOYIELD  此标志使系统不释放等待调用程序空闲的线程
+		//PM_QS_INPUT 处理鼠标和键盘消息。
+		//PM_QS_PAINT 处理画图消息。
+		//PM_QS_POSTMESSAGE 处理所有被寄送的消息，包括计时器和热键。
+		//PM_QS_SENDMESSAGE 处理所有发送消息。
 		if (PeekMessage(&Msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (Msg.message == WM_QUIT)
@@ -74,10 +75,18 @@ void FWindowsEngine::Tick(float DeltaTime)
 		}
 		else
 		{
-			//Sleep(static_cast<unsigned long>(DeltaTime * 1000));
-			//清除上一帧
-			DX12RenderEngine->Rendering(DeltaTime);
-			MainWorld->TickWorld(DeltaTime);
+			mTimer.Tick();
+			if(!mAppPaused)
+			{
+				CalculateFrameStats();
+				DX12RenderEngine->Update(mTimer);
+				DX12RenderEngine->Rendering(mTimer.DeltaTime());
+				MainWorld->TickWorld(mTimer.DeltaTime());
+			}
+			else
+			{
+				Sleep(100);
+			}
 		}
 	}
 
@@ -170,6 +179,34 @@ bool FWindowsEngine::InitWindows(ICommandParameters InParameters)
 
 	GE_LOG(Log, "InitWindows complete.");
 	return true;
+}
+
+void FWindowsEngine::CalculateFrameStats()
+{
+	static int frameCnt = 0;
+	static float timeElapsed = 0.0f;
+
+	frameCnt++;
+
+	// Compute averages over one second period.
+	if ((mTimer.TotalTime() - timeElapsed) >= 1.0f)
+	{
+		float fps = (float)frameCnt; // fps = frameCnt / 1
+		float mspf = 1000.0f / fps;
+
+		wstring fpsStr = to_wstring(fps);
+		wstring mspfStr = to_wstring(mspf);
+
+		wstring windowText = mMainWndCaption +
+			L"    fps: " + fpsStr +
+			L"   mspf: " + mspfStr;
+
+		SetWindowText(MainHwnd, windowText.c_str());
+
+		// Reset for next average.
+		frameCnt = 0;
+		timeElapsed += 1.0f;
+	}
 }
 
 #endif

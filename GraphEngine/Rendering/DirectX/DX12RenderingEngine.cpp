@@ -1,7 +1,7 @@
 #include "DX12RenderingEngine.h"
 #include "RenderingEngine.h"
 #include <Config/EngineRenderConfig.h>
-#include "Mesh/Core/MeshManage.h"
+#include "RenderingPipeline.h"
 
 
 
@@ -16,13 +16,12 @@ FDX12RenderEngine::FDX12RenderEngine()
 	{
 		SwapChainResource.push_back(ComPtr<ID3D12Resource>());
 	}
-	MeshManage = new UMeshManage();
 }
 
 
 FDX12RenderEngine::~FDX12RenderEngine()
 {
-	delete MeshManage;
+  delete RenderingPipeline;
 }
 
 UINT FDX12RenderEngine::GetDXGISampleCount() const
@@ -77,6 +76,11 @@ bool FDX12RenderEngine::InitDirect3D()
 		DX12_DEBUG_MESSAGE(DXGIFactory->EnumWarpAdapter(IID_PPV_ARGS(&warpAdpter)));
 		DX12_DEBUG_MESSAGE(D3D12CreateDevice(warpAdpter.Get(), D3D_FEATURE_LEVEL_11_1, IID_PPV_ARGS(&D3dDevice)));
 	}
+
+	//新建渲染关线类
+	RenderingPipeline = new FRenderingPipeline(this);
+
+
 	//围栏是为了平衡CPU与GPU
 	Result = D3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(D3dFence.GetAddressOf()));
 	//创建命令队列
@@ -182,7 +186,9 @@ bool FDX12RenderEngine::InitDirect3D()
 
 void FDX12RenderEngine::PostInitDirect3D()
 {
-
+	RTVDescriptorSize = D3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	DSVDescriptorSize = D3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
+	CBVDescriptorSize = D3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	//CPU等GPU渲染完
 	WaitGPUCommandQueueComplete();
 	//重置命令列表
@@ -203,7 +209,7 @@ void FDX12RenderEngine::PostInitDirect3D()
 		DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 	//获取表示堆开始的 CPU 描述符句柄。
 	CD3DX12_CPU_DESCRIPTOR_HANDLE RTVHandle(RTVHeap->GetCPUDescriptorHandleForHeapStart());
-	RTVDescriptorSize = D3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	
 	for (UINT i = 0; i < FEngineRenderConfig::Get().SwapChainCount; ++i)
 	{
 		DXGISwapChain->GetBuffer(i, IID_PPV_ARGS(&SwapChainResource[i]));
@@ -284,20 +290,41 @@ void FDX12RenderEngine::PostInitDirect3D()
 	GraphicsCommandList->Reset(CommandAllocator.Get(), NULL);
 
 
-	//构建Mesh
-	MeshManage->CreatePlaneMesh(10, 10, 20, 20);
+	//----------------------------------------------------------//
+	RenderingPipeline->BuildRootSignature();
+	RenderingPipeline->BuildShadersAndInputLayout();
+	RenderingPipeline->BuildGeometry();
+	RenderingPipeline->BuildRenderItems();
+	RenderingPipeline->BuildFrameResources();
+	RenderingPipeline->BuildDescriptorHeaps();
+	RenderingPipeline->BuildConstantBufferViews();
+	RenderingPipeline->BuildPSOs();
+	//----------------------------------------------------------//
 	GraphicsCommandList->Close();
+
 	ID3D12CommandList* CommandList1[] = { GraphicsCommandList.Get() };
 	CommandQueue->ExecuteCommandLists(_countof(CommandList1), CommandList1);
 	WaitGPUCommandQueueComplete();
-	MeshManage->Init();
+}
+
+void FDX12RenderEngine::Update(const GameTimer& gt)
+{
+	RenderingPipeline->Update(gt);
 }
 
 void FDX12RenderEngine::Rendering(float InDeltaTime)
 {
+	auto cmdListAlloc=RenderingPipeline->mCurrFrameResource->CmdListAlloc;
 	//重置录制相关的内存，为下一帧做准备
-	DX12_DEBUG_MESSAGE(CommandAllocator->Reset());
-	MeshManage->PreDraw(InDeltaTime);
+	DX12_DEBUG_MESSAGE(cmdListAlloc->Reset());
+	if (RenderingPipeline->mIsWireframe)
+	{
+		DX12_DEBUG_MESSAGE(GraphicsCommandList->Reset(cmdListAlloc.Get(), RenderingPipeline->mPSOs["opaque_wireframe"].Get()));
+	}
+	else
+	{
+		DX12_DEBUG_MESSAGE(GraphicsCommandList->Reset(cmdListAlloc.Get(), RenderingPipeline->mPSOs["opaque"].Get()));
+	}
 	/////////////////////////////////////////////////////////
 	//指向哪个资源 转换其状态
 	//通知驱动程序它需要同步对资源的多次访问。
@@ -334,8 +361,7 @@ void FDX12RenderEngine::Rendering(float InDeltaTime)
 	);
 
 	//渲染其他内容
-	MeshManage->Draw(InDeltaTime);
-	MeshManage->Update(InDeltaTime);
+	RenderingPipeline->DrawRenderItems(GraphicsCommandList.Get());
 	///////////////////////////////////////////////
 	//-------------↓↓↓↓↓↓------------------//
 	CD3DX12_RESOURCE_BARRIER ResourceBarrierPresentRenderTarget =
@@ -357,7 +383,16 @@ void FDX12RenderEngine::Rendering(float InDeltaTime)
 	//0或者1
 	CurrentSwapBuffIndex = (++CurrentSwapBuffIndex) % FEngineRenderConfig::Get().SwapChainCount;
 	//CPU等GPU渲染完
-	WaitGPUCommandQueueComplete();
+
+	//将围栏值前移以将命令标记到此围栏点。
+	RenderingPipeline->mCurrFrameResource->Fence = ++mCurrentFence;
+
+	//将指令添加到命令队列以设置新的围栏点。
+	//因为我们在GPU时间表上，新的围栏点不会
+	//设置，直到GPU在此信号（）之前完成所有命令的处理。
+	CommandQueue->Signal(D3dFence.Get(), mCurrentFence);
+
+
 }
 
 ID3D12Resource* FDX12RenderEngine::GetCurrentSwapBuffResource() const

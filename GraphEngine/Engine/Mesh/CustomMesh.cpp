@@ -10,24 +10,8 @@ UCustomMesh::~UCustomMesh()
 
 }
 
-void UCustomMesh::Init()
-{
-	Super::Init();
-}
 
-void UCustomMesh::Draw(float InDeltaTime)
-{
-	Super::Draw(InDeltaTime);
-}
-
-void UCustomMesh::BuildMesh(const FMeshRenderingData* InData)
-{
-	Super::BuildMesh(InData);
-}
-
-
-
-void UCustomMesh::CreateMesh(FMeshRenderingData& MeshData, string& InPath)
+void UCustomMesh::CreateMesh(FMeshData& MeshData, string& InPath)
 {
 	//拿到文件大小
 	unsigned int FileSize = get_file_size_by_filename(InPath.c_str());
@@ -48,7 +32,7 @@ void UCustomMesh::CreateMesh(FMeshRenderingData& MeshData, string& InPath)
 	delete Buff;
 }
 
-bool UCustomMesh::LoadObjFromBuff(char* InBuff, uint32_t InBuffSize, FMeshRenderingData& MeshData)
+bool UCustomMesh::LoadObjFromBuff(char* InBuff, uint32_t InBuffSize, FMeshData& MeshData)
 {
 	if (InBuffSize > 0)
 	{
@@ -80,12 +64,12 @@ bool UCustomMesh::LoadObjFromBuff(char* InBuff, uint32_t InBuffSize, FMeshRender
 					else
 					{
 						//先添加一个
-						MeshData.VertexData.push_back(FVertexData(
+						MeshData.Vertices.push_back(FVertexData(
 							XMFLOAT3(), XMFLOAT4(Colors::White)));
 
 						//拿到添加后的位置
-						int TopIndex = MeshData.VertexData.size() - 1;
-						XMFLOAT3& Float3InPos = MeshData.VertexData[TopIndex].Position;
+						int TopIndex = MeshData.Vertices.size() - 1;
+						XMFLOAT3& Float3InPos = MeshData.Vertices[TopIndex].Position;
 
 						//解析了位置
 						LineStream >> Float3InPos.x;
@@ -113,7 +97,7 @@ bool UCustomMesh::LoadObjFromBuff(char* InBuff, uint32_t InBuffSize, FMeshRender
 						char* VPosIndex = string_mid(SaveLineString, TmpBuff, 0, StringPosA);
 
 						//放到索引容器里面
-						MeshData.IndexData.push_back(atoi(VPosIndex) - 1);
+						MeshData.Indices32.push_back(atoi(VPosIndex) - 1);
 
 						//纹理Index
 						int StringPosB = find_string(SaveLineString, "/", StringPosA + 1);

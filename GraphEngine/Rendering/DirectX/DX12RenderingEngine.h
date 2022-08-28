@@ -2,10 +2,13 @@
 #include "EngineMinimal.h"
 #include "RenderingEngine.h"
 #include "Core/Engine.h"
+
+
+class FRenderingPipeline;
 class FDX12RenderEngine:public IRenderEngine
 {
 	friend class FWindowsEngine;
-	friend class IRenderingIntface;
+	friend class FRenderingPipeline;
 public:
 	FDX12RenderEngine();
 	virtual ~FDX12RenderEngine();
@@ -18,6 +21,7 @@ private:
 	void SetMianWindowsHandle(HWND InNewMianWindowsHandle);
 	bool InitDirect3D();
 	void PostInitDirect3D();
+	virtual void Update(const GameTimer& gt)override;
 	//Rendering
 	virtual void Rendering(float InDeltaTime)override;
 public:
@@ -30,8 +34,8 @@ public:
 	ComPtr<ID3D12Fence>		GetD3dFence()const {return D3dFence;};
 
 	ComPtr<ID3D12CommandQueue>			GetCommandQueue()const {return CommandQueue;};
-	ComPtr<ID3D12CommandAllocator>		GetCommandAllocator()const {return CommandAllocator;};
-	ComPtr<ID3D12GraphicsCommandList>	GetGraphicsCommandList()const {return GraphicsCommandList;};
+	ComPtr<ID3D12CommandAllocator>		GetCommandAllocator()const {return CommandAllocator;}
+	ComPtr<ID3D12GraphicsCommandList>	GetGraphicsCommandList()const {return GraphicsCommandList;}
 
 	ComPtr<IDXGISwapChain> GetDXGISwapChain;
 protected:
@@ -67,6 +71,9 @@ private:
 	DXGI_FORMAT		BackBufferFormat;
 	DXGI_FORMAT		DepthStencilFormat;
 	UINT RTVDescriptorSize;
+	UINT DSVDescriptorSize;
+	UINT CBVDescriptorSize;
 private:
-	class UMeshManage* MeshManage;
+	FRenderingPipeline* RenderingPipeline;
+	UINT64 mCurrentFence = 0;
 };

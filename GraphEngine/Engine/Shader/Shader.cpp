@@ -10,8 +10,9 @@ SIZE_T FShader::GetBufferSize()
 	return ShaderCode->GetBufferSize();
 }
 
-void FShader::BuildShaders(const wstring& InFileName, const string& InEntryFunName, const string& InShadersVersion)
+FShader FShader::BuildShaders(const wstring& InFileName, const string& InEntryFunName, const string& InShadersVersion)
 {
+	 FShader OutShader;
 	ComPtr<ID3DBlob> ErrorShaderMsg;
 	HRESULT R = D3DCompileFromFile(InFileName.c_str(),
 		NULL,D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -21,7 +22,7 @@ void FShader::BuildShaders(const wstring& InFileName, const string& InEntryFunNa
 #else
 0
 #endif
-		,0,&ShaderCode,&ErrorShaderMsg);
+		,0,& OutShader.ShaderCode,&ErrorShaderMsg);
 
 	if (ErrorShaderMsg)
 	{
@@ -30,4 +31,6 @@ void FShader::BuildShaders(const wstring& InFileName, const string& InEntryFunNa
 
 	//Ê§°Ü¾Í±¼À£ÁË
 	DX12_DEBUG_MESSAGE(R);
+
+	return OutShader;
 }

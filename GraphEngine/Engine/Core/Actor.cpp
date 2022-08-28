@@ -6,11 +6,10 @@
 
 AActor::AActor()
 	:TransformationComponent(nullptr)
-	, InputComponent(nullptr)
 	, bIsEnableTick(true)
 	, bMarkDelete(false)
 {
-	InputComponent = ConstructComponent<UInputComponent>(this);
+	
 	TransformationComponent = ConstructComponent<UTransformComponent>(this);
 }
 

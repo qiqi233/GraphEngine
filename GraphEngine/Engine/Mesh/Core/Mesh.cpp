@@ -2,37 +2,37 @@
 #include "Config/EngineRenderConfig.h"
 
 
-UMesh::UMesh()
+AStaticMesh::AStaticMesh()
 {
 	
 }
 
-UMesh::~UMesh()
+AStaticMesh::~AStaticMesh()
 {
 
 }
 
-void UMesh::Init()
-{
-	
-}
-
-void UMesh::PreDraw(float InDeltaTime)
+void AStaticMesh::BeginPlay()
 {
 
 }
 
-void UMesh::Update(float InDeltaTime)
+void AStaticMesh::Tick(float DeltaTime)
 {
-	
+
 }
 
-void UMesh::Draw(float InDeltaTime)
+void AStaticMesh::EndPlay()
 {
-	
+
 }
 
-void UMesh::BuildMesh(const FMeshRenderingData* InData)
+void AStaticMesh::DestroyPlay()
+{
+
+}
+
+void AStaticMesh::BuildMesh(const FMeshData* InData)
 {
 
 }
