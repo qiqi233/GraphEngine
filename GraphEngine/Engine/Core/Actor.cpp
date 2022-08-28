@@ -18,19 +18,106 @@ AActor::~AActor()
 
 }
 
-void AActor::SetActorLocation(const XMFLOAT3& InLoc)
+void AActor::SetPosition(const XMFLOAT3& InNewPosition)
 {
-
+	if(TransformationComponent)
+	{
+		TransformationComponent->SetPosition(InNewPosition);
+	}
 }
 
-void AActor::SetActorRotation(const XMFLOAT3& InRot)
+void AActor::SetRotation(const FRotator& InNewRotation)
 {
-
+	if (TransformationComponent)
+	{
+		TransformationComponent->SetRotation(InNewRotation);
+	}
 }
 
-void AActor::SetActorScale3D(const XMFLOAT3& InScale)
+void AActor::SetScale(const fvector_3d& InNewScale)
 {
+	if (TransformationComponent)
+	{
+		TransformationComponent->SetScale(InNewScale);
+	}
+}
 
+void AActor::SetForwardVector(const XMFLOAT3& InForwardVector)
+{
+	if (TransformationComponent)
+	{
+		TransformationComponent->SetForwardVector(InForwardVector);
+	}
+}
+
+void AActor::SetRightVector(const XMFLOAT3& InRightVector)
+{
+	if (TransformationComponent)
+	{
+		TransformationComponent->SetRightVector(InRightVector);
+	}
+}
+
+void AActor::SetUPVector(const XMFLOAT3& InUPVector)
+{
+	if (TransformationComponent)
+	{
+		TransformationComponent->SetUPVector(InUPVector);
+	}
+}
+
+DirectX::XMFLOAT3 AActor::GetPosition()
+{
+	if (TransformationComponent)
+	{
+		return TransformationComponent->GetPosition();
+	}
+	return DirectX::XMFLOAT3();
+}
+
+FRotator AActor::GetRotation()
+{
+	if (TransformationComponent)
+	{
+		return TransformationComponent->GetRotation();
+	}
+	return FRotator::ZeroRotator;
+}
+
+fvector_3d AActor::GetScale() const
+{
+	if (TransformationComponent)
+	{
+		return TransformationComponent->GetScale();
+	}
+	return fvector_3d();
+}
+
+DirectX::XMFLOAT3 AActor::GetForwardVector()
+{
+	if (TransformationComponent)
+	{
+		return TransformationComponent->GetForwardVector();
+	}
+	return DirectX::XMFLOAT3();
+}
+
+DirectX::XMFLOAT3 AActor::GetRightVector()
+{
+	if (TransformationComponent)
+	{
+		return TransformationComponent->GetRightVector();
+	}
+	return DirectX::XMFLOAT3();
+}
+
+DirectX::XMFLOAT3 AActor::GetUPVector()
+{
+	if (TransformationComponent)
+	{
+		return TransformationComponent->GetUPVector();
+	}
+	return DirectX::XMFLOAT3();
 }
 
 void AActor::Init(UWorld* InWorld)

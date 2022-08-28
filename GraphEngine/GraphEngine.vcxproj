@@ -36,8 +36,9 @@
         <ClCompile Include="Engine\EngineFactory.cpp" />
         <ClCompile Include="Engine\EngineMinimal.cpp" />
         <ClCompile Include="Engine\Luanch.cpp" />
+        <ClCompile Include="Engine\Math\Math\UnrealMath.cpp" />
         <ClCompile Include="Engine\Math\MathHelper.cpp" />
-        <ClCompile Include="Engine\Math\MathUtility.cpp" />
+        <ClCompile Include="Engine\Math\Memory\FMemory.cpp" />
         <ClCompile Include="Engine\Mesh\Core\GeometryGenerator.cpp" />
         <ClCompile Include="Engine\Mesh\Core\Mesh.cpp" />
         <ClCompile Include="Engine\Mesh\CustomMesh.cpp" />
@@ -110,8 +111,46 @@
         <ClInclude Include="Engine\EngineFactory.h" />
         <ClInclude Include="Engine\EngineMinimal.h" />
         <ClInclude Include="Engine\GC\CodeRefMacro.h" />
+        <ClInclude Include="Engine\Math\Containers\Array.h" />
+        <ClInclude Include="Engine\Math\Core.h" />
+        <ClInclude Include="Engine\Math\CoreTypes.h" />
+        <ClInclude Include="Engine\Math\GenericPlatform\GenericPlatformMath.h" />
+        <ClInclude Include="Engine\Math\Math\Axis.h" />
+        <ClInclude Include="Engine\Math\Math\Box.h" />
+        <ClInclude Include="Engine\Math\Math\Color.h" />
+        <ClInclude Include="Engine\Math\Math\Float16.h" />
+        <ClInclude Include="Engine\Math\Math\Float32.h" />
+        <ClInclude Include="Engine\Math\Math\InterpCurvePoint.h" />
+        <ClInclude Include="Engine\Math\Math\IntPoint.h" />
+        <ClInclude Include="Engine\Math\Math\IntRect.h" />
+        <ClInclude Include="Engine\Math\Math\IntVector.h" />
+        <ClInclude Include="Engine\Math\Math\MathHelper.h" />
+        <ClInclude Include="Engine\Math\Math\Matrix.h" />
+        <ClInclude Include="Engine\Math\Math\NumericLimits.h" />
+        <ClInclude Include="Engine\Math\Math\Plane.h" />
+        <ClInclude Include="Engine\Math\Math\Quat.h" />
+        <ClInclude Include="Engine\Math\Math\QuatRotationTranslationMatrix.h" />
+        <ClInclude Include="Engine\Math\Math\RotationAboutPointMatrix.h" />
+        <ClInclude Include="Engine\Math\Math\RotationMatrix.h" />
+        <ClInclude Include="Engine\Math\Math\RotationTranslationMatrix.h" />
+        <ClInclude Include="Engine\Math\Math\Rotator.h" />
+        <ClInclude Include="Engine\Math\Math\Transform.h" />
+        <ClInclude Include="Engine\Math\Math\TwoVectors.h" />
+        <ClInclude Include="Engine\Math\Math\UnrealMath.h" />
+        <ClInclude Include="Engine\Math\Math\UnrealMathFPU.h" />
+        <ClInclude Include="Engine\Math\Math\UnrealMathUtility.h" />
+        <ClInclude Include="Engine\Math\Math\UnrealMathVectorCommon.h" />
+        <ClInclude Include="Engine\Math\Math\UnrealMathVectorConstants.h" />
+        <ClInclude Include="Engine\Math\Math\Vector.h" />
+        <ClInclude Include="Engine\Math\Math\Vector2D.h" />
+        <ClInclude Include="Engine\Math\Math\Vector2DHalf.h" />
+        <ClInclude Include="Engine\Math\Math\Vector4.h" />
+        <ClInclude Include="Engine\Math\Math\VectorRegister.h" />
         <ClInclude Include="Engine\Math\MathHelper.h" />
-        <ClInclude Include="Engine\Math\MathUtility.h" />
+        <ClInclude Include="Engine\Math\Memory\FMemory.h" />
+        <ClInclude Include="Engine\Math\Misc\CoreMiscDefines.h" />
+        <ClInclude Include="Engine\Math\Misc\IsPODType.h" />
+        <ClInclude Include="Engine\Math\Windows\WindowsPlatformMath.h" />
         <ClInclude Include="Engine\Mesh\Core\GeometryGenerator.h" />
         <ClInclude Include="Engine\Mesh\Core\Mesh.h" />
         <ClInclude Include="Engine\Mesh\Core\MeshBufferData.h" />
@@ -232,25 +271,25 @@
         <LinkIncremental>true</LinkIncremental>
         <OutDir>../Bin/</OutDir>
         <IntDir>../Temp/</IntDir>
-        <IncludePath>$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
+        <IncludePath>$(ProjectDir)Engine\Math\Math;$(ProjectDir)Engine\Math;$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
     </PropertyGroup>
     <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">
         <LinkIncremental>false</LinkIncremental>
         <OutDir>../Bin/</OutDir>
         <IntDir>../Temp/</IntDir>
-        <IncludePath>$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
+        <IncludePath>$(ProjectDir)Engine\Math\Math;$(ProjectDir)Engine\Math;$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
     </PropertyGroup>
     <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
         <LinkIncremental>true</LinkIncremental>
         <OutDir>../Bin/</OutDir>
         <IntDir>../Temp/</IntDir>
-        <IncludePath>$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
+        <IncludePath>$(ProjectDir)Engine\Math\Math;$(ProjectDir)Engine\Math;$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
     </PropertyGroup>
     <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
         <LinkIncremental>false</LinkIncremental>
         <OutDir>../Bin/</OutDir>
         <IntDir>../Temp/</IntDir>
-        <IncludePath>$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
+        <IncludePath>$(ProjectDir)Engine\Math\Math;$(ProjectDir)Engine\Math;$(ProjectDir)Engine;$(ProjectDir)Rendering;$(ProjectDir)simple_library;$(ProjectDir)simple_library\public;$(ProjectDir)simple_library\private;$(IncludePath)</IncludePath>
     </PropertyGroup>
     <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">
         <ClCompile>

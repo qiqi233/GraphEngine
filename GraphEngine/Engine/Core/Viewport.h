@@ -33,8 +33,6 @@ public:
 	virtual ~IViewport();
 
 	void ViewportInit();
-protected:
-
 	//定义摄像机位置,UP，Right,Look
 	XMFLOAT4X4 ViewMatrix;
 

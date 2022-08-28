@@ -13,15 +13,17 @@ public:
 	virtual void Destroy()override;
 public:
 	void SetPosition(const XMFLOAT3& InNewPosition);
-	void SetRotation(const fvector_3d& InNewRotation);
+	void SetRotation(const UEMath::FRotator& InNewRotation);
 	void SetScale(const fvector_3d& InNewScale);
 
 	void SetForwardVector(const XMFLOAT3& InForwardVector);
 	void SetRightVector(const XMFLOAT3& InRightVector);
 	void SetUPVector(const XMFLOAT3& InUPVector);
+
+	void MarkRotationMofity();
 public:
 	XMFLOAT3& GetPosition() { return Position; }
-	fvector_3d GetRotation() const { return fvector_3d(Rotation.x, Rotation.y, Rotation.z); }
+	UEMath::FRotator GetRotation() const { return Rotation; }
 	fvector_3d GetScale() const { return fvector_3d(Scale.x, Scale.y, Scale.z); }
 
 	XMFLOAT3& GetForwardVector() { return ForwardVector; }
@@ -36,7 +38,7 @@ public:
 
 private:
 	XMFLOAT3 Position;
-	XMFLOAT3 Rotation;
+	UEMath::FRotator Rotation;
 	XMFLOAT3 Scale;
 
 	XMFLOAT3 ForwardVector;

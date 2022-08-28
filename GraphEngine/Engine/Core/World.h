@@ -23,7 +23,7 @@ public:
 		TempActor->BeginPlay();
 		return TempActor;
 	}
-	
+	ACamera* GetMainCamera();
 private:
 	std::unordered_map<FString,AActor*> Actors;
 	ACamera* MainCamera;

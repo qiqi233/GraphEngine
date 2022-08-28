@@ -18,8 +18,10 @@
 #include "Core/Misc/PlatformMaro.h"
 #include "DebugInfo/EngineDebug.h"
 #include "DebugInfo/EngineLog.h"
-
-
+#include <Rotator.h>
+#include <Matrix.h>
+#include <Vector.h>
+using namespace UEMath;
 using namespace Microsoft::WRL;
 using namespace DirectX;
 using namespace DirectX::PackedVector;

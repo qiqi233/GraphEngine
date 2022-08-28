@@ -55,8 +55,8 @@ private:
 	bool bRightMouseDownAction;
 	bool bMiddenMouseDownAction;
 	//鼠标灵敏度
-	float MoveSensitivity = 1;//移动
-	float RotSensitivity = 1;//旋转
+	float MoveSensitivity = 20;//移动
+	float RotSensitivity = 15;//旋转
 	float ScaleSensitivity = 1;//缩放
 	POINT LastMousePosition;
 
@@ -65,4 +65,5 @@ private:
 	float A;//Theta
 	float B;//
 
+	float TickDeltaTime=0;
 };

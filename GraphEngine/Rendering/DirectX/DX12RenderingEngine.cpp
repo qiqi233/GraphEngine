@@ -316,14 +316,14 @@ void FDX12RenderEngine::Rendering(float InDeltaTime)
 {
 	auto cmdListAlloc=RenderingPipeline->mCurrFrameResource->CmdListAlloc;
 	//重置录制相关的内存，为下一帧做准备
-	DX12_DEBUG_MESSAGE(cmdListAlloc->Reset());
+	//DX12_DEBUG_MESSAGE(cmdListAlloc->Reset());
 	if (RenderingPipeline->mIsWireframe)
 	{
-		DX12_DEBUG_MESSAGE(GraphicsCommandList->Reset(cmdListAlloc.Get(), RenderingPipeline->mPSOs["opaque_wireframe"].Get()));
+		GraphicsCommandList->Reset(cmdListAlloc.Get(), RenderingPipeline->mPSOs["opaque_wireframe"].Get());
 	}
 	else
 	{
-		DX12_DEBUG_MESSAGE(GraphicsCommandList->Reset(cmdListAlloc.Get(), RenderingPipeline->mPSOs["opaque"].Get()));
+		GraphicsCommandList->Reset(cmdListAlloc.Get(), RenderingPipeline->mPSOs["opaque"].Get());
 	}
 	/////////////////////////////////////////////////////////
 	//指向哪个资源 转换其状态
@@ -344,7 +344,7 @@ void FDX12RenderEngine::Rendering(float InDeltaTime)
 
 	//清除画布
 	GraphicsCommandList->ClearRenderTargetView(
-		GetCurrentSwapBufferView(), DirectX::Colors::Black, 0, nullptr);
+		GetCurrentSwapBufferView(), Colors::LightSteelBlue, 0, nullptr);
 	//清除模板/深度缓存
 	GraphicsCommandList->ClearDepthStencilView(
 		GetCurrentDepthStencilView(),
@@ -372,14 +372,14 @@ void FDX12RenderEngine::Rendering(float InDeltaTime)
 	//--------------↑↑↑↑↑↑--------------------//
 
 	//录入完成 一共8个命令
-	DX12_DEBUG_MESSAGE(GraphicsCommandList->Close());
+	GraphicsCommandList->Close();
 
 	//提交命令
 	ID3D12CommandList* CommandList[] = { GraphicsCommandList.Get() };
 	CommandQueue->ExecuteCommandLists(_countof(CommandList), CommandList);
 
 	//交换两个buff缓冲区
-	DX12_DEBUG_MESSAGE(DXGISwapChain->Present(0,/*垂直同步*/  0));
+	DXGISwapChain->Present(0,/*垂直同步*/  0);
 	//0或者1
 	CurrentSwapBuffIndex = (++CurrentSwapBuffIndex) % FEngineRenderConfig::Get().SwapChainCount;
 	//CPU等GPU渲染完

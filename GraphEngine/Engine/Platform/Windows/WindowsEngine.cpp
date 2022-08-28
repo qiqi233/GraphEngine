@@ -76,9 +76,9 @@ void FWindowsEngine::Tick(float DeltaTime)
 		else
 		{
 			mTimer.Tick();
-			if(!mAppPaused)
+			CalculateFrameStats();
+			if (!mAppPaused)
 			{
-				CalculateFrameStats();
 				DX12RenderEngine->Update(mTimer);
 				DX12RenderEngine->Rendering(mTimer.DeltaTime());
 				MainWorld->TickWorld(mTimer.DeltaTime());

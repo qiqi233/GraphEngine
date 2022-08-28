@@ -6,6 +6,8 @@
 #include "Platform/Windows/WindowsEngine.h"
 #include "Config/EngineRenderConfig.h"
 #include <DirectXMathMatrix.inl>
+#include "Core/Camera.h"
+#include "Core/World.h"
 
 
 
@@ -17,8 +19,8 @@ FRenderingPipeline::FRenderingPipeline(FDX12RenderEngine* RenderEngine)
 	CBVDescriptorSize = GetD3dDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 
-	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * MathHelper::Pi, (float)FEngineRenderConfig::Get().ScreenWidth / (float)FEngineRenderConfig::Get().ScreenHight, 1.0f, 1000.0f);
-	XMStoreFloat4x4(&mProj, P);
+	//XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * MathHelper::Pi, (float)FEngineRenderConfig::Get().ScreenWidth / (float)FEngineRenderConfig::Get().ScreenHight, 1.0f, 1000.0f);
+	//XMStoreFloat4x4(&mProj, P);
 }
 
 void FRenderingPipeline::BuildRootSignature()
@@ -421,17 +423,17 @@ void FRenderingPipeline::OnKeyboardInput(const GameTimer& gt)
 void FRenderingPipeline::UpdateCamera(const GameTimer& gt)
 {
 	// Convert Spherical to Cartesian coordinates.
-	mEyePos.x = mRadius * sinf(mPhi) * cosf(mTheta);
-	mEyePos.z = mRadius * sinf(mPhi) * sinf(mTheta);
-	mEyePos.y = mRadius * cosf(mPhi);
+	//mEyePos.x = mRadius * sinf(mPhi) * cosf(mTheta);
+	//mEyePos.z = mRadius * sinf(mPhi) * sinf(mTheta);
+	//mEyePos.y = mRadius * cosf(mPhi);
 
-	// Build the view matrix.
-	XMVECTOR pos = XMVectorSet(mEyePos.x, mEyePos.y, mEyePos.z, 1.0f);
-	XMVECTOR target = XMVectorZero();
-	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	//// Build the view matrix.
+	//XMVECTOR pos = XMVectorSet(mEyePos.x, mEyePos.y, mEyePos.z, 1.0f);
+	//XMVECTOR target = XMVectorZero();
+	//XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
-	XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
-	XMStoreFloat4x4(&mView, view);
+	//XMMATRIX view = XMMatrixLookAtLH(pos, target, up);
+	//XMStoreFloat4x4(&mView, view);
 }
 
 void FRenderingPipeline::UpdateObjectCBs(const GameTimer& gt)
@@ -458,34 +460,68 @@ void FRenderingPipeline::UpdateObjectCBs(const GameTimer& gt)
 
 void FRenderingPipeline::UpdateMainPassCB(const GameTimer& gt)
 {
+	if(UWorld* MainWorld=GetEngine()->GetMainWorld())
+	{	
+		ACamera* MainCamera= MainWorld->GetMainCamera();
+		if(!MainCamera)
+			return;
 
-	XMMATRIX view = XMLoadFloat4x4(&mView);
-	XMMATRIX proj = XMLoadFloat4x4(&mProj);
+		XMMATRIX view = XMLoadFloat4x4(&MainCamera->ViewMatrix);
+		XMMATRIX proj = XMLoadFloat4x4(&MainCamera->ProjectMatrix);
 
-	XMMATRIX viewProj = XMMatrixMultiply(view, proj);
-	XMVECTOR viewDeterminant =XMMatrixDeterminant(view);
-	XMMATRIX invView = XMMatrixInverse(&viewDeterminant, view);
-	XMVECTOR projDeterminant = XMMatrixDeterminant(proj);
-	XMMATRIX invProj = XMMatrixInverse(&projDeterminant, proj);
-	XMVECTOR viewProjDeterminant = XMMatrixDeterminant(viewProj);
-	XMMATRIX invViewProj = XMMatrixInverse(&viewProjDeterminant, viewProj);
+		XMMATRIX viewProj = XMMatrixMultiply(view, proj);
+		XMVECTOR viewDeterminant = XMMatrixDeterminant(view);
+		XMMATRIX invView = XMMatrixInverse(&viewDeterminant, view);
+		XMVECTOR projDeterminant = XMMatrixDeterminant(proj);
+		XMMATRIX invProj = XMMatrixInverse(&projDeterminant, proj);
+		XMVECTOR viewProjDeterminant = XMMatrixDeterminant(viewProj);
+		XMMATRIX invViewProj = XMMatrixInverse(&viewProjDeterminant, viewProj);
 
-	XMStoreFloat4x4(&mMainPassCB.View, XMMatrixTranspose(view));
-	XMStoreFloat4x4(&mMainPassCB.InvView, XMMatrixTranspose(invView));
-	XMStoreFloat4x4(&mMainPassCB.Proj, XMMatrixTranspose(proj));
-	XMStoreFloat4x4(&mMainPassCB.InvProj, XMMatrixTranspose(invProj));
-	XMStoreFloat4x4(&mMainPassCB.ViewProj, XMMatrixTranspose(viewProj));
-	XMStoreFloat4x4(&mMainPassCB.InvViewProj, XMMatrixTranspose(invViewProj));
-	mMainPassCB.EyePosW = mEyePos;
-	mMainPassCB.RenderTargetSize = XMFLOAT2(FEngineRenderConfig::Get().ScreenWidth, FEngineRenderConfig::Get().ScreenHight);
-	mMainPassCB.InvRenderTargetSize = XMFLOAT2(1.0f / (float)FEngineRenderConfig::Get().ScreenWidth, 1.0f / (float)FEngineRenderConfig::Get().ScreenHight);
-	mMainPassCB.NearZ = 1.0f;
-	mMainPassCB.FarZ = 1000.0f;
-	mMainPassCB.TotalTime = gt.TotalTime();
-	mMainPassCB.DeltaTime = gt.DeltaTime();
+		XMStoreFloat4x4(&mMainPassCB.View, XMMatrixTranspose(view));
+		XMStoreFloat4x4(&mMainPassCB.InvView, XMMatrixTranspose(invView));
+		XMStoreFloat4x4(&mMainPassCB.Proj, XMMatrixTranspose(proj));
+		XMStoreFloat4x4(&mMainPassCB.InvProj, XMMatrixTranspose(invProj));
+		XMStoreFloat4x4(&mMainPassCB.ViewProj, XMMatrixTranspose(viewProj));
+		XMStoreFloat4x4(&mMainPassCB.InvViewProj, XMMatrixTranspose(invViewProj));
+		mMainPassCB.EyePosW = MainCamera->GetPosition();
+		mMainPassCB.RenderTargetSize = XMFLOAT2(FEngineRenderConfig::Get().ScreenWidth, FEngineRenderConfig::Get().ScreenHight);
+		mMainPassCB.InvRenderTargetSize = XMFLOAT2(1.0f / (float)FEngineRenderConfig::Get().ScreenWidth, 1.0f / (float)FEngineRenderConfig::Get().ScreenHight);
+		mMainPassCB.NearZ = 1.0f;
+		mMainPassCB.FarZ = 1000.0f;
+		mMainPassCB.TotalTime = gt.TotalTime();
+		mMainPassCB.DeltaTime = gt.DeltaTime();
 
-	auto currPassCB = mCurrFrameResource->PassCB.get();
-	currPassCB->CopyData(0, mMainPassCB);
+		auto currPassCB = mCurrFrameResource->PassCB.get();
+		currPassCB->CopyData(0, mMainPassCB);
+		/*XMMATRIX view = XMLoadFloat4x4(&mView);
+		XMMATRIX proj = XMLoadFloat4x4(&mProj);
+
+		XMMATRIX viewProj = XMMatrixMultiply(view, proj);
+		XMVECTOR viewDeterminant = XMMatrixDeterminant(view);
+		XMMATRIX invView = XMMatrixInverse(&viewDeterminant, view);
+		XMVECTOR projDeterminant = XMMatrixDeterminant(proj);
+		XMMATRIX invProj = XMMatrixInverse(&projDeterminant, proj);
+		XMVECTOR viewProjDeterminant = XMMatrixDeterminant(viewProj);
+		XMMATRIX invViewProj = XMMatrixInverse(&viewProjDeterminant, viewProj);
+
+		XMStoreFloat4x4(&mMainPassCB.View, XMMatrixTranspose(view));
+		XMStoreFloat4x4(&mMainPassCB.InvView, XMMatrixTranspose(invView));
+		XMStoreFloat4x4(&mMainPassCB.Proj, XMMatrixTranspose(proj));
+		XMStoreFloat4x4(&mMainPassCB.InvProj, XMMatrixTranspose(invProj));
+		XMStoreFloat4x4(&mMainPassCB.ViewProj, XMMatrixTranspose(viewProj));
+		XMStoreFloat4x4(&mMainPassCB.InvViewProj, XMMatrixTranspose(invViewProj));
+		mMainPassCB.EyePosW = mEyePos;
+		mMainPassCB.RenderTargetSize = XMFLOAT2(FEngineRenderConfig::Get().ScreenWidth, FEngineRenderConfig::Get().ScreenHight);
+		mMainPassCB.InvRenderTargetSize = XMFLOAT2(1.0f / (float)FEngineRenderConfig::Get().ScreenWidth, 1.0f / (float)FEngineRenderConfig::Get().ScreenHight);
+		mMainPassCB.NearZ = 1.0f;
+		mMainPassCB.FarZ = 1000.0f;
+		mMainPassCB.TotalTime = gt.TotalTime();
+		mMainPassCB.DeltaTime = gt.DeltaTime();
+
+		auto currPassCB = mCurrFrameResource->PassCB.get();
+		currPassCB->CopyData(0, mMainPassCB);*/
+	}
+	
 }
 
 void FRenderingPipeline::Update(const GameTimer& gt)

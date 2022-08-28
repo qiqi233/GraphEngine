@@ -65,3 +65,8 @@ void UWorld::DestroyActor(AActor* InA)
 	InA=nullptr;
 }
 
+ACamera* UWorld::GetMainCamera()
+{
+	return MainCamera;
+}
+

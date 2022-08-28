@@ -1,9 +1,10 @@
 #include "TransformComponent.h"
 #include <DirectXMathVector.inl>
+#include "Math/MathHelper.h"
 
 UTransformComponent::UTransformComponent()
 	: Position(0.f, 0.f, 0.f)
-	, Rotation(0.f, 0.f, 0.f)
+	, Rotation(FRotator::ZeroRotator)
 	, Scale(1.f, 1.f, 1.f)
 	, ForwardVector(0.f, 0.f, 1.f)
 	, RightVector(1.f, 0.f, 0.f)
@@ -40,13 +41,15 @@ void UTransformComponent::SetPosition(const XMFLOAT3& InNewPosition)
 	Position = InNewPosition;
 }
 
-void UTransformComponent::SetRotation(const fvector_3d& InNewRotation)
+void UTransformComponent::SetRotation(const UEMath::FRotator& InNewRotation)
 {
+
+	Rotation=InNewRotation;
 	//XMConvertToRadians：度数转弧度值
 	//XMConvertToDegrees：弧度值转度数
-	float RollRadians = XMConvertToRadians(InNewRotation.z);
-	float PithRadians = XMConvertToRadians(InNewRotation.x);
-	float YawRadians = XMConvertToRadians(InNewRotation.y);
+	float RollRadians = XMConvertToRadians(InNewRotation.Roll);
+	float PithRadians = XMConvertToRadians(InNewRotation.Pitch);
+	float YawRadians = XMConvertToRadians(InNewRotation.Yaw);
 
 	//旋转矩阵
 	XMMATRIX RotMatrix = XMMatrixRotationRollPitchYaw(
@@ -55,7 +58,7 @@ void UTransformComponent::SetRotation(const fvector_3d& InNewRotation)
 	XMVECTOR Right = XMLoadFloat3(&RightVector);
 	XMVECTOR Up = XMLoadFloat3(&UPVector);
 	XMVECTOR Forward = XMLoadFloat3(&ForwardVector);
-
+	//XMVector3TransformNormal:使用输入矩阵的第 0、1 和 2 行进行转换以进行旋转和缩放，并忽略第 3 行。
 	XMStoreFloat3(&RightVector, XMVector3TransformNormal(XMLoadFloat3(&RightVector), RotMatrix));
 	XMStoreFloat3(&UPVector, XMVector3TransformNormal(XMLoadFloat3(&UPVector), RotMatrix));
 	XMStoreFloat3(&ForwardVector, XMVector3TransformNormal(XMLoadFloat3(&ForwardVector), RotMatrix));
@@ -81,6 +84,15 @@ void UTransformComponent::SetRightVector(const XMFLOAT3& InRightVector)
 void UTransformComponent::SetUPVector(const XMFLOAT3& InUPVector)
 {
 	UPVector=InUPVector;
+}
+
+void UTransformComponent::MarkRotationMofity()
+{
+	FVector RollAxis(ForwardVector.x, ForwardVector.y, ForwardVector.z);
+	FVector PitchAxis(RightVector.x, RightVector.y, RightVector.z);;
+	FVector YawAxis(UPVector.x, UPVector.y, UPVector.z);;
+	FMatrix RotMatrix(RollAxis, PitchAxis, YawAxis, FVector::ZeroVector);
+	Rotation=RotMatrix.Rotator();
 }
 
 void UTransformComponent::CorrectionVector()

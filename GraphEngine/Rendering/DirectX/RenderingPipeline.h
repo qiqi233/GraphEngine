@@ -61,13 +61,13 @@ private:
 private:
 	FDX12RenderEngine* DX12RenderEngine;
 
-	XMFLOAT3 mEyePos = { 0.0f, 0.0f, 0.0f };
-	XMFLOAT4X4 mView = MathHelper::Identity4x4();
-	XMFLOAT4X4 mProj = MathHelper::Identity4x4();
+	//XMFLOAT3 mEyePos = { 0.0f, 0.0f, 0.0f };
+	//XMFLOAT4X4 mView = MathHelper::Identity4x4();
+	//XMFLOAT4X4 mProj = MathHelper::Identity4x4();
 
-	float mTheta = 1.5f * XM_PI;
+	/*float mTheta = 1.5f * XM_PI;
 	float mPhi = 0.2f * XM_PI;
-	float mRadius = 15.0f;
+	float mRadius = 15.0f;*/
 
-	POINT mLastMousePos;
+	//POINT mLastMousePos;
 };

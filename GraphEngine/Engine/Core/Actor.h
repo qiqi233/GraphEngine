@@ -14,9 +14,21 @@ public:
 	AActor();
 	virtual ~AActor();
 public:
-	void SetActorLocation(const XMFLOAT3& InLoc);
-	void SetActorRotation(const XMFLOAT3& InRot);
-	void SetActorScale3D(const XMFLOAT3& InScale);
+	void SetPosition(const XMFLOAT3& InNewPosition);
+	void SetRotation(const FRotator& InNewRotation);
+	void SetScale(const fvector_3d& InNewScale);
+
+	void SetForwardVector(const XMFLOAT3& InForwardVector);
+	void SetRightVector(const XMFLOAT3& InRightVector);
+	void SetUPVector(const XMFLOAT3& InUPVector);
+public:
+	XMFLOAT3 GetPosition();
+	FRotator GetRotation();
+	fvector_3d GetScale() const;
+
+	XMFLOAT3 GetForwardVector();
+	XMFLOAT3 GetRightVector();
+	XMFLOAT3 GetUPVector();
 public:
 	virtual void Init(UWorld* InWorld);
 	virtual void BeginPlay();

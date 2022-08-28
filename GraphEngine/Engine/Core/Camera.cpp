@@ -4,6 +4,7 @@
 #include "EngineMinimal.h"
 #include "Platform/Windows/WindowsEngine.h"
 #include <DirectXMathConvert.inl>
+#include <DirectXMathVector.inl>
 
 ACamera::ACamera()
 	: InputComponent(nullptr)
@@ -20,6 +21,7 @@ ACamera::~ACamera()
 void ACamera::BeginPlay()
 {
 	Super::BeginPlay();
+	ViewportInit();
 	//Actions
 	InputComponent->GetInputDownEvent().Bind(this,&ACamera::CaptureInputDownEvent);
 	InputComponent->GetInputUpEvent().Bind(this, &ACamera::CaptureUpdateInputUpEvent);
@@ -31,13 +33,15 @@ void ACamera::BeginPlay()
 	//Axis
 	InputComponent->BindAxis(EKeys::W,1.f,this, &ACamera::MoveForward);
 	InputComponent->BindAxis(EKeys::S, -1.f, this, &ACamera::MoveForward);
-	InputComponent->BindAxis(EKeys::A, 1.f, this, &ACamera::MoveRight);
-	InputComponent->BindAxis(EKeys::D, -1.f, this, &ACamera::MoveRight);
+	InputComponent->BindAxis(EKeys::A, -1.f, this, &ACamera::MoveRight);
+	InputComponent->BindAxis(EKeys::D, 1.f, this, &ACamera::MoveRight);
 }
 
 void ACamera::Tick(float DeltaTime)
 {
+	TickDeltaTime=DeltaTime;
 	Super::Tick(DeltaTime);
+	BuildViewMatrix(DeltaTime);
 }
 
 void ACamera::EndPlay()
@@ -65,6 +69,11 @@ void ACamera::RotatorAxis(XMFLOAT3 InAxis, float InV)
 	XMStoreFloat3(&TransformationComponent->GetRightVector(), XMVector3TransformNormal(XMLoadFloat3(&RightVector), RotationMatrix));
 	XMStoreFloat3(&TransformationComponent->GetUPVector(), XMVector3TransformNormal(XMLoadFloat3(&UPVector), RotationMatrix));
 	XMStoreFloat3(&TransformationComponent->GetForwardVector(), XMVector3TransformNormal(XMLoadFloat3(&ForwardVector), RotationMatrix));
+
+	if(TransformationComponent)
+	{
+		TransformationComponent->MarkRotationMofity();
+	}
 }
 
 void ACamera::MoveFromAxis(XMFLOAT3 InAxis, float InValue)
@@ -88,7 +97,7 @@ void ACamera::MoveForward(float InValue)
 		XMFLOAT3 AT3Position = TransformationComponent->GetPosition();
 		XMFLOAT3 AT3ForwardVector = TransformationComponent->GetForwardVector();
 
-		XMVECTOR AmountMovement = XMVectorReplicate(InValue * 1.f);
+		XMVECTOR AmountMovement = XMVectorReplicate(InValue *MoveSensitivity* TickDeltaTime);
 		XMVECTOR Forward = XMLoadFloat3(&AT3ForwardVector);
 		XMVECTOR Position = XMLoadFloat3(&AT3Position);
 
@@ -104,7 +113,7 @@ void ACamera::MoveRight(float InValue)
 		XMFLOAT3 AT3Position = TransformationComponent->GetPosition();
 		XMFLOAT3 AT3RightVector = TransformationComponent->GetRightVector();
 
-		XMVECTOR AmountMovement = XMVectorReplicate(InValue * 1.f);
+		XMVECTOR AmountMovement = XMVectorReplicate(InValue*MoveSensitivity * TickDeltaTime);
 		XMVECTOR Right = XMLoadFloat3(&AT3RightVector);
 		XMVECTOR Position = XMLoadFloat3(&AT3Position);
 
@@ -171,15 +180,15 @@ void ACamera::OnMouseMove(int X, int Y)
 {
 	if (bRightMouseDownAction)
 	{
-		float XRadians = XMConvertToRadians((float)(X - LastMousePosition.x) * RotSensitivity);
-		float YRadians = XMConvertToRadians((float)(Y - LastMousePosition.y) * RotSensitivity);
+		float XRadians = XMConvertToRadians((float)(X - LastMousePosition.x) * RotSensitivity* TickDeltaTime);
+		float YRadians = XMConvertToRadians((float)(Y - LastMousePosition.y) * RotSensitivity * TickDeltaTime);
 
 		switch (CameraType)
 		{
 		case ECameraType::Edit:
 		{
-			RotatorAxis(XMFLOAT3(0, 1, 0), YRadians);//Rot Yaw
-			RotatorAxis(XMFLOAT3(0, 0, 1), XRadians);//Rot Pitch
+			RotatorAxis(XMFLOAT3(0, 1, 0), XRadians);//Rot Yaw
+			RotatorAxis(TransformationComponent->GetRightVector(), YRadians);//Rot Pitch
 			//RotateAroundZAxis(XRadians);
 			break;
 		}
@@ -195,11 +204,16 @@ void ACamera::OnMouseMove(int X, int Y)
 	}
 	if (bLeftMouseDownAction)
 	{
-		float XRadians = XMConvertToRadians((float)(X - LastMousePosition.x) * RotSensitivity);
-		float YRadians = XMConvertToRadians((float)(Y - LastMousePosition.y) * RotSensitivity);
+		float XRadians = XMConvertToRadians((float)(X - LastMousePosition.x) * MoveSensitivity *TickDeltaTime*5);
+		float YRadians = XMConvertToRadians((float)(Y - LastMousePosition.y) * MoveSensitivity * TickDeltaTime * 5);
 
-		MoveFromAxis(TransformationComponent->GetRightVector(),XRadians);
-		MoveFromAxis(XMFLOAT3(1, 0, 0), YRadians);
+		MoveFromAxis(TransformationComponent->GetRightVector(),-XRadians);
+		XMVECTOR TmpRightVector=XMLoadFloat3(&TransformationComponent->GetRightVector());
+		XMFLOAT3 TmpUpFloat3(0,1,0);
+		XMVECTOR TmpUp = XMLoadFloat3(&TmpUpFloat3);
+		XMVECTOR TempForwad=XMVector3Cross(TmpRightVector, TmpUp);
+		XMStoreFloat3(&TmpUpFloat3,TempForwad);
+		MoveFromAxis(TmpUpFloat3, YRadians);
 	}
 	LastMousePosition.x = X;
 	LastMousePosition.y = Y;
